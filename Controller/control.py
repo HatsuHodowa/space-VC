@@ -19,8 +19,14 @@ class SpaceVC:
 
 
     def update_ui(self):
-        stats_dict = None # TODO
-        self.view.update_stats(self, stats_dict)
+        stats_dict = {
+            "income": self.player.income(),
+            "balance": self.player.balance(),
+            "assets": len(self.player.assets),
+            "liabilities": len(self.player.liabilities),
+            "credit_score": self.player.credit_score
+        }
+        self.view.update_stats( stats_dict)
 
     def update_model(self):
         # TODO: Update player model based on user actions
