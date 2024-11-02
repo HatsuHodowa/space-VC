@@ -18,6 +18,15 @@ class SpaceVC:
         root.mainloop()
 
 
+    def update_ui(self):
+        stats_dict = None # TODO
+        self.view.update_stats(self, stats_dict)
+
+    def update_model(self):
+        # TODO: Update player model based on user actions
+        pass 
+
+
 
 if __name__ == "__main__":
     SpaceVC()
