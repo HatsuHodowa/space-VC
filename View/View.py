@@ -72,14 +72,6 @@ class View:
         # opening game
         self.set_menu("in_game")
 
-        self.update_stats({
-            "month" : 5,
-            "balance" : 125132532,
-            "liabilities" : 10,
-            "net_worth" : 15235235,
-            "income" : 123124
-        })
-
     def format_number(number: int) -> str:
         suffix_index = math.floor(math.log10(number) / 3)
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
