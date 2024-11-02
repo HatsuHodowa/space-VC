@@ -21,11 +21,9 @@ class View:
         self.bg_photo = None
         self.bg_label = None
 
-        # in game stats
-        self.balance = tk.StringVar(self.window, "$1,000,000", name="balance")
-
         # styling defaults
         self.frame_styling = {"bg":PRIM_COLOR, "highlightbackground":SEC_COLOR, "highlightthickness":5}
+        self.medium_font = ("Roboto", 20)
 
         # opening game
         self.set_menu("in_game")
@@ -54,8 +52,15 @@ class View:
 
         # items in top bar
         top_bar.columnconfigure(0, weight=1)
-        balance = tk.Label(top_bar, textvariable=self.balance, justify="center", bg=PRIM_COLOR)
-        balance.grid(column=0, row=0, sticky="nsew")
+        top_bar.columnconfigure(1, weight=1)
+        top_bar.rowconfigure(0, weight=1)
+
+        balance = tk.Label(top_bar, text="Balance: $0", bg=PRIM_COLOR, font=self.medium_font)
+        date = tk.Label(top_bar, text="Date: January 3000", bg=PRIM_COLOR, font=self.medium_font)
+        balance.grid(column=0, row=0)
+        date.grid(column=1, row=0)
+
+        # next button
 
         # bottom section
         bottom_frame = tk.Frame(self.window, **self.frame_styling)
