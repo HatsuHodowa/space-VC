@@ -3,6 +3,10 @@ from PIL import Image, ImageTk
 
 # constants
 WINDOW_SIZE = (600, 600)
+PRIM_COLOR = "#e8e8e8"
+SEC_COLOR = "#ababab"
+WHITE = "#ffffff"
+BLACK = "#000000"
 
 # class
 class View:
@@ -16,6 +20,12 @@ class View:
         # properties
         self.bg_photo = None
         self.bg_label = None
+
+        # in game stats
+        self.balance = tk.StringVar(self.window, "$1,000,000")
+
+        # styling defaults
+        self.frame_styling = {"bg":PRIM_COLOR, "highlightbackground":SEC_COLOR, "highlightthickness":5}
 
         # opening game
         self.set_menu("in_game")
@@ -38,8 +48,17 @@ class View:
     def in_game(self): # Load background image
         self.set_background("View/back.jpg")
 
-        label = tk.Label(self.window, text="Hello world")
-        label.pack()
+        # top bar
+        top_bar = tk.Frame(self.window, **self.frame_styling)
+        top_bar.place(x=0, y=0, width=WINDOW_SIZE[0], height=60)
+
+        # items in top bar
+        balance = tk.Label(top_bar, textvariable=self.balance, justify="center")
+        balance.grid(column=0, row=0, sticky="")
+
+        # bottom section
+        bottom_frame = tk.Frame(self.window, **self.frame_styling)
+        bottom_frame.place(x=0, y=WINDOW_SIZE[1], anchor="sw", width=WINDOW_SIZE[0], height=200)
 
 if __name__ == "__main__":
     root = tk.Tk()
