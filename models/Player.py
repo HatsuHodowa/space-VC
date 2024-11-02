@@ -3,7 +3,6 @@ from models.Liability import Liability
 from models.Job import Job
 
 class Player:
-
     def __init__(self, assets=[], liabilites=[], credit_score=750, cash=0, job: Job=None) -> None:
         self.assets = assets
         self.liabilities = liabilites
@@ -32,17 +31,17 @@ class Player:
         self.credit_score = min(850, self.credit_score * adjustment)
 
     def monthly_update(self, payment_amount, liability: Liability):
-        if liability.payoff_date == 0:
+        if liability.months_left == 0:
             self.collections_remove_liability(liability)
             return
-        amount_owed = liability.debt_amount / liability.payoff_date
+        amount_owed = liability.debt_amount / liability.months_left
         if payment_amount < amount_owed:
             penalty = (amount_owed - payment_amount) / amount_owed
             self.update_credit_score(1 - 0.1 * penalty)
         else:
             penalty = 1 - (amount_owed - payment_amount) / amount_owed
             self.update_credit_score(1 + 0.1 * penalty)
-        liability.monthly_update(payment_amount)
+        liability.pay_loan(payment_amount)
             
 
     def collections_remove_liability(self, liability: Liability):
@@ -63,3 +62,17 @@ class Player:
     def balance(self):
         return self.cash + sum([asset.value for asset in self.assets]) - sum([liability.debt_amount for liability in self.liabilities])
     
+    @property
+    def risk_aversion(self):
+        """Computes Risk aversion. The weight of an asset if the dollar value of a security divided by the total value of the portfolio"""
+        total = 0
+        sum_of_values = sum([asset.value for asset in self.assets])
+        for asset in self.assets:
+            weight = asset.value / sum_of_values
+            if asset.apr_std == 0: #edge case, make it really small
+                total += weight * 2 / (0.00001 ** 2) * (asset.apr_mean - 0.03)
+            risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
+            total += weight * risk
+        return total
+        
+        
