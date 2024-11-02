@@ -73,11 +73,14 @@ class View:
         self.set_menu("in_game")
 
     def format_number(number: int) -> str:
+        if number <= 0:
+            return str(number)
         suffix_index = math.floor(math.log10(number) / 3)
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
 
     def update_stats(self, stats_dict: dict):
+        print("Updating stats: ", stats_dict)
         """
         stats_dict keys:
             balance: number
