@@ -22,6 +22,7 @@ class View:
         # properties
         self.bg_photo = None
         self.bg_label = None
+        self.current_menu = ""
 
         # stats
         self.balance = tk.StringVar(self.window, "Balance: $0")
@@ -40,10 +41,35 @@ class View:
         self.padding_5 = {"padx":5, "pady":5}
 
         # opening game
-        self.set_menu("in_game", "stats_tab")
+        self.set_menu("in_game")
+
+        self.update_stats({
+            "credit_score" : 200,
+            "income" : 200000
+        })
 
     def update_stats(self, stats_dict: dict):
-        pass
+        """
+        stats_dict keys:
+            credit_score: number
+            income: number
+            net_worth: number
+            occupation: str
+        """
+
+        # updating string values
+        if "credit_score" in stats_dict:
+            self.credit_score.set("Credit Score: " + str(stats_dict["credit_score"]))
+        if "income" in stats_dict:
+            self.income.set("Income: $" + str(stats_dict["income"]) + "/month")
+        if "net_worth" in stats_dict:
+            self.net_worth.set("Net Worth: $" + str(stats_dict["net_worth"]))
+        if "occupation" in stats_dict:
+            self.occupation.set("Occupation: " + stats_dict["occupation"])
+
+        # reloading menu
+        if self.current_menu == "in_game":
+            self.set_menu(self.current_menu)
 
     def set_background(self, path: str):
         bg_image = Image.open("../View/back.jpg")
@@ -54,13 +80,14 @@ class View:
 
     def set_menu(self, menu_name: str, *args):
         self.clear_window()
+        self.current_menu = menu_name
         getattr(self, menu_name)(*args)
         
     def clear_window(self):
         for widget in self.window.winfo_children():
             widget.destroy()
 
-    def in_game(self, current_tab: str): # Load background image
+    def in_game(self, current_tab: str = "stats_tab"): # Load background image
         self.set_background("../View/back.jpg")
 
         # top bar
