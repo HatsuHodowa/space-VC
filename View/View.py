@@ -61,7 +61,7 @@ class View:
             widget.destroy()
 
     def in_game(self, current_tab: str): # Load background image
-        self.set_background("View/back.jpg")
+        self.set_background("../View/back.jpg")
 
         # top bar
         top_bar = tk.Frame(self.window, **self.frame_styling)
