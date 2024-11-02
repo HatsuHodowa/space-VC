@@ -29,7 +29,7 @@ class View:
         self.set_menu("in_game")
 
     def set_background(self, path: str):
-        bg_image = Image.open("View/back.jpg")
+        bg_image = Image.open("../View/back.jpg")
         bg_image = bg_image.resize((800, 600), Image.LANCZOS)
         self.bg_photo = ImageTk.PhotoImage(bg_image)
         self.bg_label = tk.Label(self.window, image=self.bg_photo)
@@ -44,7 +44,7 @@ class View:
             widget.destroy()
 
     def in_game(self): # Load background image
-        self.set_background("View/back.jpg")
+        self.set_background("../View/back.jpg")
 
         # top bar
         top_bar = tk.Frame(self.window, **self.frame_styling)

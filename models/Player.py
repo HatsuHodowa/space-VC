@@ -1,5 +1,5 @@
-from models.Asset import Asset
-from models.Liability import Liability
+import models.Asset as Asset
+import models.Liability as Liability
 
 class Player:
 
