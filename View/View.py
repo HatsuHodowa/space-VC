@@ -13,15 +13,19 @@ class View:
         self.window.title("Space Finance Simulator")
         self.window.geometry(str(WINDOW_SIZE[0]) + "x" + str(WINDOW_SIZE[1]))
 
+        # properties
+        self.bg_photo = None
+        self.bg_label = None
+
         # opening game
         self.set_menu("in_game")
 
     def set_background(self, path: str):
-        image = Image.open("View/back.jpg")
-        image = image.resize(WINDOW_SIZE, Image.LANCZOS)
-        photo = ImageTk.PhotoImage(image)
-        label = tk.Label(self.window, image=photo)
-        label.place(x=0, y=0, relwidth=1, relheight=1)
+        bg_image = Image.open("View/back.jpg")
+        bg_image = bg_image.resize((800, 600), Image.LANCZOS)
+        self.bg_photo = ImageTk.PhotoImage(bg_image)
+        self.bg_label = tk.Label(self.window, image=self.bg_photo)
+        self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     def set_menu(self, menu_name: str):
         self.clear_window()
