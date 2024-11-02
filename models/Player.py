@@ -1,4 +1,6 @@
-import Asset, Liability
+from models.Asset import Asset
+from models.Liability import Liability
+
 class Player:
 
     def __init__(self, assets=[], liabilites=[]) -> None:
@@ -10,10 +12,10 @@ class Player:
         self.assets.append(asset)
 
     def buy_liability(self, liability: Liability):
-        self.liabilities.remove(liability)
+        self.liabilities.append(liability)
 
     def sell_asset(self, asset: Asset):
-        self.assets.append(asset)
+        self.assets.remove(asset)
 
     def sell_liability(self, liability):
         self.liabilities.remove(liability)
