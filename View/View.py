@@ -22,7 +22,7 @@ class View:
         self.bg_label = None
 
         # in game stats
-        self.balance = tk.StringVar(self.window, "$1,000,000")
+        self.balance = tk.StringVar(self.window, "$1,000,000", name="balance")
 
         # styling defaults
         self.frame_styling = {"bg":PRIM_COLOR, "highlightbackground":SEC_COLOR, "highlightthickness":5}
@@ -53,8 +53,9 @@ class View:
         top_bar.place(x=0, y=0, width=WINDOW_SIZE[0], height=60)
 
         # items in top bar
-        balance = tk.Label(top_bar, textvariable=self.balance, justify="center")
-        balance.grid(column=0, row=0, sticky="")
+        top_bar.columnconfigure(0, weight=1)
+        balance = tk.Label(top_bar, textvariable=self.balance, justify="center", bg=PRIM_COLOR)
+        balance.grid(column=0, row=0, sticky="nsew")
 
         # bottom section
         bottom_frame = tk.Frame(self.window, **self.frame_styling)
