@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 import math
 
 # constants
-WINDOW_SIZE = (600, 600)
+WINDOW_SIZE = (900, 600)
 PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
@@ -73,6 +73,9 @@ class View:
         self.set_menu("in_game")
 
     def format_number(number: int) -> str:
+        if number <= 0:
+            return str(number)
+        
         suffix_index = math.floor(math.log10(number) / 3)
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
@@ -119,8 +122,9 @@ class View:
             self.set_menu(self.current_menu)
 
     def set_background(self, path: str):
-        bg_image = Image.open("../View/back.jpg")
-        bg_image = bg_image.resize((800, 600), Image.LANCZOS)
+        bg_image = Image.open(path)
+        aspect_ratio = bg_image.width / bg_image.height
+        bg_image = bg_image.resize((WINDOW_SIZE[0], int(WINDOW_SIZE[0] / aspect_ratio)), Image.LANCZOS)
         self.bg_photo = ImageTk.PhotoImage(bg_image)
         self.bg_label = tk.Label(self.window, image=self.bg_photo)
         self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -134,8 +138,8 @@ class View:
         for widget in self.window.winfo_children():
             widget.destroy()
 
-    def in_game(self, current_tab: str = "stats_tab"):
-        self.set_background("../View/back.jpg")
+    def in_game(self, current_tab: str = "stats_tab", background="../View/backgrounds/unicorn space.jpg"):
+        self.set_background(background)
 
         # top bar
         top_bar = tk.Frame(self.window, **self.frame_styling)
@@ -179,6 +183,9 @@ class View:
         elif current_tab == "liabilities_tab":
             liabilities_tab.config(bg=SELECTED_COLOR)
 
+        # add stocks tab? TODO
+        # add taxes tab? TODO
+
         # connecting buttons
         def switch_tab(new_tab: str):
             self.set_menu("in_game", new_tab)
@@ -212,9 +219,65 @@ class View:
         liabilities.grid(column=1, row=1, sticky="W", **self.padding_5)
 
     def assets_tab(self, bottom_frame: tk.Frame):
+
+        # creating items
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        value = tk.Label(data_frame, font=self.small_font, text="Value: $0")
+        cash_flow = tk.Label(data_frame, font=self.small_font, text="Cash Flow: $0/month")
+
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # adding assets
+        for i in range(10):
+            listbox.insert(0, "Hello world " + str(i))
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            selected = event.widget.curselection()
+            
+            # updating information
+
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
+        
+        # list all current assets
+        # buying assets
+        # selling assets
+
+        """
+        for each asset
+            value: number
+            income: number
+            average return rate: number
+            STD return rate: number
+            liability: str
+        """
         pass
 
     def liabilities_tab(self, bottom_frame: tk.Frame):
+        # list all current liabilities
+        # getting loans
+        # paying off loans
+
+        """
+        for each liability
+            balance: number
+            interest_rate: number
+            months_to_pay: number
+        """
         pass
 
 if __name__ == "__main__":
