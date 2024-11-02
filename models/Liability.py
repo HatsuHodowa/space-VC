@@ -5,6 +5,14 @@ class Liability:
         self.debt_amount = debt_amount
         self.interest_rate = interest_rate
         self.payoff_date = payoff_date
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "debt_amount": self.debt_amount,
+            "interest_rate": self.interest_rate,
+            "payoff_date": self.payoff_date
+        }
     
     def pay_loan(self, amount):
         self.debt_amount -= amount
@@ -24,6 +32,8 @@ class Liability:
     @property
     def monthly_payment(self):
         return self.debt_amount / 12
+    
+    # TO-DO: Check the autopay functionality in the game controller.
 
     
 
