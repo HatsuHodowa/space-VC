@@ -25,12 +25,7 @@ def generate_earth_level(f):
             Asset(name="Earth Rocket", value=random.randint(450000, 550000) * f, purchase_price=500000, income=0, apr_mean=0.03, apr_std=0.01, asset_type=AssetType.PROPERTY)
         ],
         "careers": [
-            Job(title="Software Engineer", income=random.randint(60000, 120000)),
-            Job(title="Doctor", income=random.randint(80000, 150000)),
-            Job(title="Agricultural Scientist", income=random.randint(50000, 90000)),
-            Job(title="Construction Worker", income=random.randint(40000, 70000)),
-            Job(title="Small Business Owner", income=random.randint(30000, 80000)),
-            Job(title="Stock Trader", income=random.randint(50000, 100000))
+            Job(title="Aerospace Engineer", income=random.randint(60000, 120000))
         ],
         "liabilities": [
             Liability(name="Mortgage", debt_amount=random.randint(150000, 250000), interest_rate=0.04, months_left=18),
