@@ -342,8 +342,3 @@ class View:
 
     def taxes_tab(self, bottom_frame: tk.Frame):
         pass
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = View(root)
-    root.mainloop()
