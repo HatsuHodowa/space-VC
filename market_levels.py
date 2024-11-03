@@ -7,6 +7,14 @@ from numpy import random
 
 def generate_earth_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="House", value=random.randint(250000, 350000), purchase_price=275000, income=1500, apr_mean=0.03, apr_std=0.01, asset_type=AssetType.PROPERTY, liability=Liability(name="Mortgage", debt_amount=random.randint(150000, 250000), interest_rate=0.04, months_left=36)),
             Asset(name="Car", value=random.randint(15000, 25000), purchase_price=20000, income=0, apr_mean=0.02, apr_std=0.005, asset_type=AssetType.PROPERTY, liability=Liability(name="Car Loan", debt_amount=random.randint(10000, 20000), interest_rate=0.05, months_left=6)),
@@ -27,11 +35,19 @@ def generate_earth_level():
         "liabilities": [
             Liability(name="Mortgage", debt_amount=random.randint(150000, 250000), interest_rate=0.04, months_left=18),
             Liability(name="Car Loan", debt_amount=random.randint(10000, 20000), interest_rate=0.05, months_left=6)
-        ]
+        ],
     }
 
 def generate_moon_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Lunar Habitat", value=random.randint(350000, 450000), purchase_price=400000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Habitat Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Moon Mining Rights", value=random.randint(250000, 350000), purchase_price=300000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -56,6 +72,14 @@ def generate_moon_level():
 
 def generate_venus_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Venus Dome", value=random.randint(350000, 450000), purchase_price=400000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Dome Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Atmosphere Mining Rights", value=random.randint(250000, 350000), purchase_price=300000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -80,6 +104,14 @@ def generate_venus_level():
 
 def generate_mars_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Mars Rover", value=random.randint(120000, 180000), purchase_price=150000, income=500, apr_mean=0.03, apr_std=0.01, asset_type=AssetType.PROPERTY, liability=Liability(name="Rover Loan", debt_amount=random.randint(80000, 120000), interest_rate=0.05, months_left=12)),
             Asset(name="Martian Colony Unit", value=random.randint(200000, 300000), purchase_price=250000, income=3000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Colony Unit Mortgage", debt_amount=random.randint(150000, 250000), interest_rate=0.04, months_left=24)),
@@ -104,6 +136,14 @@ def generate_mars_level():
 
 def generate_mercury_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Mercury Habitat", value=random.randint(350000, 450000), purchase_price=425000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Habitat Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Mercury Mining Rights", value=random.randint(250000, 350000), purchase_price=275000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -128,6 +168,14 @@ def generate_mercury_level():
 
 def generate_jupiter_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Jupiter Orbital Station", value=random.randint(350000, 450000), purchase_price=440000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Station Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Jovian Mining Rights", value=random.randint(250000, 350000), purchase_price=320000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -152,6 +200,14 @@ def generate_jupiter_level():
 
 def generate_saturn_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Saturn Orbital Station", value=random.randint(350000, 450000), purchase_price=425000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Station Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Titan Mining Rights", value=random.randint(250000, 350000), purchase_price=300000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -176,6 +232,14 @@ def generate_saturn_level():
 
 def generate_uranus_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Uranus Research Outpost", value=random.randint(350000, 450000), purchase_price=400000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Outpost Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Uranus Gas Mining Rights", value=random.randint(250000, 350000), purchase_price=275000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -200,6 +264,14 @@ def generate_uranus_level():
 
 def generate_neptune_level():
     return {
+        "images" : {
+            "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+            "assets_tab" : "../View/backgrounds/assets.jpg",
+            "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+            "asset_market_tab" : "../View/backgrounds/markets.jpg",
+            "taxes_tab" : "../View/backgrounds/tax.jpg",
+            "career_tab" : "../View/backgrounds/careers.jpg",
+        },
         "assets": [
             Asset(name="Neptune Research Station", value=random.randint(350000, 450000), purchase_price=425000, income=4000, apr_mean=0.04, apr_std=0.02, asset_type=AssetType.PROPERTY, liability=Liability(name="Station Mortgage", debt_amount=random.randint(250000, 350000), interest_rate=0.05, months_left=36)),
             Asset(name="Neptune Gas Mining Rights", value=random.randint(250000, 350000), purchase_price=300000, income=5000, apr_mean=0.05, apr_std=0.02, asset_type=AssetType.SECURITY, liability=Liability(name="Mining Rights Loan", debt_amount=random.randint(150000, 250000), interest_rate=0.06, months_left=18)),
@@ -237,6 +309,7 @@ levels = {
 
 serializable_levels = {
     level_name: {
+        "images": data["images"],
         "assets": [asset.to_dict() for asset in data["assets"]],
         "careers": [job.to_dict() for job in data["careers"]],
         "liabilities": [liability.to_dict() for liability in data["liabilities"]]
