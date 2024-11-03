@@ -275,11 +275,11 @@ class View:
         def switch_tab(new_tab: str, background: str = None):
             self.set_menu("in_game", new_tab, background)
 
-        stats_tab.config(command=lambda :switch_tab("stats_tab"))
-        assets_tab.config(command=lambda :switch_tab("assets_tab"))
-        liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
-        asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
-        taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
+        stats_tab.config(command=lambda :switch_tab("stats_tab", "../View/backgrounds/unicorn space.jpg"))
+        assets_tab.config(command=lambda :switch_tab("assets_tab", "../View/backgrounds/assets.jpg" ))
+        liabilities_tab.config(command=lambda :switch_tab("liabilities_tab", "../View/backgrounds/Liabilities.jpg"))
+        asset_market_tab.config(command=lambda :switch_tab("asset_market_tab", "../View/backgrounds/markets.jpg"))
+        taxes_tab.config(command=lambda :switch_tab("taxes_tab", "../View/backgrounds/tax.jpg"))
 
         # adding tab content for current tab
         if current_tab != None:
