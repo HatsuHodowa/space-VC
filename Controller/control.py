@@ -120,6 +120,8 @@ class SpaceVC:
         self.update_ui()
 
     def monthly_update(self):
+        if self.game.months % 12 == 3:
+            return "Taxes due"
         self.game.monthly_update()
         self.update_ui()
 
