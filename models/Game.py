@@ -1,6 +1,7 @@
 from models.Player import Player
 from models.Asset import AssetType
 from View.View import View
+from models.Catastrophy import Catastrophy
 
 class Game:
     def __init__(self) -> None:
@@ -8,6 +9,7 @@ class Game:
         self.months = 0
         self.level = "Earth"
         self.tax_lock = False
+        self.Catastrophe = Catastrophy()
 
     def monthly_update(self):
         self.months += 1
@@ -21,6 +23,8 @@ class Game:
         # appreciate assets
         for asset in self.player.assets:
             asset.appreciate()
+            asset.value *= self.Catastrophe.impact(asset.apr_std)
+            
             self.player.cash += asset.income
 
             if (asset.asset_type == AssetType.BUSINESS):

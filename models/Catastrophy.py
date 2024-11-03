@@ -2,8 +2,13 @@ import random
 
 
 class Catastrophy:
-    def __init__(self, probability = 0.1):
+    def __init__(self, probability = 0.02):
         self.probability = probability
         
     def impact(self, value):
-        return random.random() if random.random()*value < self.probability else 1
+        
+        if random.random()/value < self.probability :
+            print("catastrophy occurred!")
+            return random.random()
+        else:
+            return 1

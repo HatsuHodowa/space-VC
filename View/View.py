@@ -5,7 +5,7 @@ import math
 import json
 
 # constants
-WINDOW_SIZE = (900, 600)
+WINDOW_SIZE = (1000, 800)
 POPUP_SIZE = (400, 200)
 ARROW_SIZE = (80, 80)
 PRIM_COLOR = "#e8e8e8"
