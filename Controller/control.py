@@ -62,9 +62,6 @@ class SpaceVC:
 
         # testing
         self.player.cash += 500000
-        self.buy_asset("House")
-        self.buy_asset("Car")
-        self.buy_liability("Mortgage")
 
         root = tk.Tk()
         self.view = View.View(root, self)
@@ -87,37 +84,38 @@ class SpaceVC:
         self.view.update_stats( stats_dict)
 
     def buy_asset(self, asset_name):
-        print(f"Buying {asset_name}")
         for a in self.data[self.level][0]:
             if a.name == asset_name:
                 self.player.buy_asset(a)
                 break
+        self.update_ui()
     def sell_asset(self, asset_name):
         for a in self.player.assets:
             if a.name == asset_name:
                 self.player.sell_asset(a)
                 break
+        self.update_ui()
     def buy_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.buy_liability(l)
                 break
+        self.update_ui()
     def sell_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.sell_liability(l)
                 break
+        self.update_ui()
     def get_job(self, job_name):
         for j in self.data[self.level][1]:
             if j.title == job_name:
                 self.player.get_job(j)
                 break
+        self.update_ui()
     def monthly_update(self):
         self.game.monthly_update()
         self.update_ui()
-        
-
-    
     def update_model(self):
         # TODO: Update player model based on user actions
         pass 
