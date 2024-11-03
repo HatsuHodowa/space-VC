@@ -33,17 +33,10 @@ class Taxes:
     def report_business(self, business):
         self.business_tax += business.value
 
-    def calculate_income_tax(self):
-        income_brackets = {
-            0: 0.1,
-            1: 0.12,
-            2: 0.22,
-            3: 0.24,
-            4: 0.32,
-            5: 0.35,
-            6: 0.37,
-            7: 0.43
-        }
-
-    
-        
+    def calculate_income_business_tax(self):
+        income_tax = 0
+        business_tax = 0
+        for bracket in self.brackets:
+            if self.taxable_income > bracket:
+                taxable_income = self.taxable_income * bracket
+                tax_on_income = taxable_income
