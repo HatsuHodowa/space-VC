@@ -5,6 +5,7 @@ import math
 
 # constants
 WINDOW_SIZE = (900, 600)
+POPUP_SIZE = (300, 200)
 PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
@@ -51,6 +52,8 @@ class View:
         self.bg_photo = None
         self.bg_label = None
         self.current_menu = ""
+        self.current_tab = "stats_tab"
+        self.current_popup = None
 
         # stats
         self.balance = tk.StringVar(self.window, "Balance: $0")
@@ -81,6 +84,34 @@ class View:
         suffix_index = math.floor(math.log10(number) / 3)
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
+    
+    def popup_display(self, message: str):
+        """
+        Creates a popup display and returns a function that removes that popup display upon calling.
+        """
+
+        self.current_popup = message
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
+        ok_button = tk.Button(frame, bg=GREEN, text="OK", width=10, font=self.small_font)
+
+        label.grid(column=0, row=0, **self.padding_10)
+        ok_button.grid(column=0, row=1, **self.padding_10)
+
+        # return function
+        def remove():
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+        
+        # close button
+        ok_button.config(command=remove)
+
+        return remove
 
     def update_stats(self, stats_dict: dict):
         print("Updating stats: ", stats_dict)
@@ -116,9 +147,9 @@ class View:
         if "occupation" in stats_dict:
             self.occupation.set("Occupation: " + stats_dict["occupation"])
         if "assets" in stats_dict:
-            self.assets.set("Assets: " + str(stats_dict["assets"]))
+            self.assets.set("Assets: $" + str(View.format_number(stats_dict["assets"])))
         if "liabilities" in stats_dict:
-            self.liabilities.set("Liabilities: " + str(stats_dict["liabilities"]))
+            self.liabilities.set("Liabilities: $" + str(View.format_number(stats_dict["liabilities"])))
 
         # reloading menu
         if self.current_menu == "in_game":
@@ -133,15 +164,21 @@ class View:
         self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     def set_menu(self, menu_name: str, *args):
+
+        # refreshing and setting new menu
         self.clear_window()
         self.current_menu = menu_name
         getattr(self, menu_name)(*args)
+
+        # adding popup again
+        if self.current_popup != None:
+            self.popup_display(self.current_popup)
         
     def clear_window(self):
         for widget in self.window.winfo_children():
             widget.destroy()
 
-    def in_game(self, current_tab: str = "stats_tab", background="../View/backgrounds/unicorn space.jpg"):
+    def in_game(self, current_tab: str = None, background="../View/backgrounds/unicorn space.jpg"):
         self.set_background(background)
 
         # top bar
@@ -173,24 +210,28 @@ class View:
         stats_tab = tk.Button(tabs_frame, text="Stats", bg=PRIM_COLOR, font=self.small_font)
         assets_tab = tk.Button(tabs_frame, text="Assets", bg=PRIM_COLOR, font=self.small_font)
         liabilities_tab = tk.Button(tabs_frame, text="Liabilities", bg=PRIM_COLOR, font=self.small_font)
-        Asset_market_tab = tk.Button(tabs_frame, text="Asset markets", bg=PRIM_COLOR, font=self.small_font)
+        asset_market_tab = tk.Button(tabs_frame, text="Asset markets", bg=PRIM_COLOR, font=self.small_font)
         taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
 
         stats_tab.grid(column=0, row=0)
         assets_tab.grid(column=1, row=0)
         liabilities_tab.grid(column=2, row=0)
-        Asset_market_tab.grid(column=3, row=0)
+        asset_market_tab.grid(column=3, row=0)
         taxes_tab.grid(column=4, row=0)
 
         # coloring selected tab
+        if current_tab == None:
+            current_tab = self.current_tab
+        self.current_tab = current_tab
+
         if current_tab == "stats_tab":
             stats_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "assets_tab":
             assets_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "liabilities_tab":
             liabilities_tab.config(bg=SELECTED_COLOR)
-        elif current_tab == "Asset_market_tab":
-            Asset_market_tab.config(bg=SELECTED_COLOR)
+        elif current_tab == "asset_market_tab":
+            asset_market_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "taxes_tab":
             taxes_tab.config(bg=SELECTED_COLOR)
 
@@ -201,7 +242,7 @@ class View:
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
-        Asset_market_tab.config(command=lambda :switch_tab("Asset_market_tab"))
+        asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
         taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
 
         # adding tab content for current tab
@@ -242,6 +283,7 @@ class View:
         mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        sell = tk.Button(data_frame, text="Sell", bg=PRIM_COLOR, font=self.small_font)
 
         # adding to display
         bottom_frame.columnconfigure(0, weight=1)
@@ -282,6 +324,9 @@ class View:
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
             if asset.liability != None:
                 liability.config(text="Liability: " + asset.liability["name"])
+
+            # configuring sell button
+            sell.config(command=lambda : self.control.sell_asset(asset_name))
             
             # adding items
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -289,6 +334,7 @@ class View:
             mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
             std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+            sell.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
 
@@ -357,7 +403,8 @@ class View:
         """
         
 
-    def Asset_market_tab(self, bottom_frame: tk.Frame):
+    def asset_market_tab(self, bottom_frame: tk.Frame):
+
         # buy/sell assets and liabilities
         scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
         listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
@@ -371,7 +418,7 @@ class View:
         std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         buy = tk.Button(data_frame, text="Buy", bg=PRIM_COLOR, font=self.small_font)
-        sell = tk.Button(data_frame, text="Sell", bg=PRIM_COLOR, font=self.small_font)
+
         # adding to display
         bottom_frame.columnconfigure(0, weight=1)
         bottom_frame.columnconfigure(1, weight=0)
@@ -411,7 +458,6 @@ class View:
             
 
             buy.config(command=lambda :self.control.buy_asset(asset_name))
-            sell.config(command=lambda : self.control.sell_asset(asset_name))
 
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
             cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
@@ -419,10 +465,9 @@ class View:
             std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
             buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
-            sell.grid(column=2, row=1, padx=(5, 15), pady=5, sticky="EW")
 
-
-
+            # hiding sell button
+            
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
         

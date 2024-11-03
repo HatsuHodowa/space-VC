@@ -11,10 +11,10 @@ class Player:
         self.job = job
 
     def buy_asset(self, asset: Asset):
-        self.assets.append(asset)
         if asset.purchase_price > self.cash:
             print("Insufficient Balance!")
             return
+        self.assets.append(asset)
         self.cash -= asset.purchase_price
 
     def buy_liability(self, liability: Liability):

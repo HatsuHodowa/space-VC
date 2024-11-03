@@ -81,7 +81,7 @@ class SpaceVC:
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months
         }
-        self.view.update_stats( stats_dict)
+        self.view.update_stats(stats_dict)
 
     def buy_asset(self, asset_name):
         for a in self.data[self.level][0]:
