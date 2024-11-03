@@ -9,7 +9,7 @@ class Catastrophy:
         if value == 0:
             return 1
         
-        if random.random()/maxvalue < self.probability :
+        if random.random()/value < self.probability :
             print("catastrophy occurred!")
             return random.random()*0.5+0.5
         else:
