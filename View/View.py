@@ -70,6 +70,7 @@ class View:
         # stats
         self.balance = tk.StringVar(self.window, "Balance: $0")
         self.date = tk.StringVar(self.window, "Date: January 3000")
+        self.level = tk.StringVar(self.window, "Level: Earth")
 
         self.credit_score = tk.StringVar(self.window, "Credit Score: 0")
         self.income = tk.StringVar(self.window, "Income: $0/month")
@@ -225,6 +226,7 @@ class View:
         stats_dict keys:
             balance: number
             month: number
+            level: str
 
             credit_score: number
             income: number
@@ -242,6 +244,8 @@ class View:
             year = month // 12 + STARTING_YEAR
             month = month % 12
             self.date.set("Date: " + MONTHS[month] + " " + str(year))
+        if "level" in stats_dict:
+            self.level.set("Level: " + stats_dict["level"])
 
         # updating string values
         if "credit_score" in stats_dict:
@@ -303,12 +307,15 @@ class View:
         # items in top bar
         top_bar.columnconfigure(0, weight=1)
         top_bar.columnconfigure(1, weight=1)
+        top_bar.columnconfigure(2, weight=1)
         top_bar.rowconfigure(0, weight=1)
 
         balance = tk.Label(top_bar, textvariable=self.balance, bg=PRIM_COLOR, font=self.small_font)
         date = tk.Label(top_bar, textvariable=self.date, bg=PRIM_COLOR, font=self.small_font)
+        level = tk.Label(top_bar, textvariable=self.level, bg=PRIM_COLOR, font=self.small_font)
         balance.grid(column=0, row=0, sticky="W", **self.padding_10)
         date.grid(column=1, row=0, sticky="W", **self.padding_10)
+        level.grid(column=2, row=0, sticky="W", **self.padding_10)
 
         # next button
         next_button = tk.Button(self.window, text="Next Month", bg=GREEN, font=self.small_font)
