@@ -1,5 +1,5 @@
 import json
-from models.Asset import Asset
+from models.Asset import Asset, AssetType
 from models.Liability import Liability
 from models.Job import Job
 from numpy import random
