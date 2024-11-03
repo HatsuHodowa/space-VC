@@ -74,6 +74,7 @@ class View:
 
         self.assets = tk.StringVar(self.window, "Assets: 0")
         self.liabilities = tk.StringVar(self.window, "Liabilities: 0")
+        self.ra = tk.StringVar(self.window, "Risk Aversion: 0")
 
         # styling defaults
         self.frame_styling = {"bg":PRIM_COLOR, "highlightbackground":SEC_COLOR, "highlightthickness":5}
@@ -200,7 +201,8 @@ class View:
             self.assets.set("Assets: $" + str(View.format_number(stats_dict["assets"])))
         if "liabilities" in stats_dict:
             self.liabilities.set("Liabilities: $" + str(View.format_number(stats_dict["liabilities"])))
-
+        if "ra" in stats_dict:
+            self.ra.set("Risk Averion: " + str(View.format_number(stats_dict["ra"])))
         # reloading menu
         if self.current_menu == "in_game":
             self.set_menu(self.current_menu)
@@ -325,7 +327,7 @@ class View:
 
         assets = tk.Label(bottom_frame, textvariable=self.assets, font=self.small_font, bg=PRIM_COLOR)
         liabilities = tk.Label(bottom_frame, textvariable=self.liabilities, font=self.small_font, bg=PRIM_COLOR)
-
+        ra = tk.Label(bottom_frame, textvariable=self.ra, font=self.small_font, bg=PRIM_COLOR)
         # adding to display
         credit_score.grid(column=0, row=0, sticky="W", padx=(5,25), pady=5)
         income.grid(column=0, row=1, sticky="W", padx=(5,25), pady=5)
@@ -334,6 +336,7 @@ class View:
 
         assets.grid(column=1, row=0, sticky="W", **self.padding_5)
         liabilities.grid(column=1, row=1, sticky="W", **self.padding_5)
+        ra.grid(column=1, row=2, sticky="W", **self.padding_5)
 
     def assets_tab(self, bottom_frame: tk.Frame):
 
