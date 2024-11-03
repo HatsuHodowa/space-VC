@@ -42,7 +42,8 @@ TAB_BACKGROUNDS = {
     "assets_tab" : "../View/backgrounds/assets.jpg",
     "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
     "asset_market_tab" : "../View/backgrounds/markets.jpg",
-    "taxes_tab" : "../View/backgrounds/tax.jpg"
+    "taxes_tab" : "../View/backgrounds/tax.jpg",
+    "career_tab" : "../View/backgrounds/careers.jpg",
 }
 
 # class
@@ -269,12 +270,14 @@ class View:
         liabilities_tab = tk.Button(tabs_frame, text="Liabilities", bg=PRIM_COLOR, font=self.small_font)
         asset_market_tab = tk.Button(tabs_frame, text="Asset markets", bg=PRIM_COLOR, font=self.small_font)
         taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
+        career_tab = tk.Button(tabs_frame, text="Career", bg=PRIM_COLOR, font=self.small_font)
 
         stats_tab.grid(column=0, row=0)
         assets_tab.grid(column=1, row=0)
         liabilities_tab.grid(column=2, row=0)
         asset_market_tab.grid(column=3, row=0)
         taxes_tab.grid(column=4, row=0)
+        career_tab.grid(column=5, row=0)
 
         # coloring selected tab
         self.current_tab = current_tab
@@ -289,6 +292,8 @@ class View:
             asset_market_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "taxes_tab":
             taxes_tab.config(bg=SELECTED_COLOR)
+        elif current_tab == "career_tab":
+            career_tab.config(bg=SELECTED_COLOR)
 
         # connecting buttons
         def switch_tab(new_tab: str):
@@ -299,6 +304,7 @@ class View:
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
         asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
         taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
+        career_tab.config(command=lambda :switch_tab("career_tab"))
 
         # adding tab content for current tab
         if current_tab != None:
@@ -486,6 +492,7 @@ class View:
 
         # getting data
         assets: list = self.control.data[self.control.game.level][0]
+        
 
         # adding assets
         for asset in assets:
@@ -522,7 +529,7 @@ class View:
         listbox.bind("<<ListboxSelect>>", listbox_select)
         
 
-        pass
+        
 
     def taxes_tab(self, bottom_frame: tk.Frame):
         # taxes tab
@@ -537,4 +544,56 @@ class View:
         liability.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
         buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
 
-    
+    def career_tab(self, bottom_frame: tk.Frame):
+
+        # buy/sell assets and liabilities
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        income = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+     
+        buy = tk.Button(data_frame, text="Work", bg=PRIM_COLOR, font=self.small_font)
+
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # getting data
+        careers: list = self.control.data[self.control.game.level][1]
+
+        # adding assets
+        print(careers)
+        for career in careers:
+            listbox.insert(tk.END, career.title)
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            selected = event.widget.curselection()
+            career_name = listbox.get(selected[0])
+            career = None
+
+            for other_career in careers:
+                if other_career.title == career_name:
+                    career = other_career
+                    break
+
+            # updating information
+            income.config(text="Income: $" + str(View.format_number(career.income)))
+       
+
+            buy.config(command=lambda :self.control.buy_career(career_name))
+
+            income.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+
+            buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
