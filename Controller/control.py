@@ -89,25 +89,27 @@ class SpaceVC:
         bought_asset = None
         for a in self.data[self.level][0]:
             if a.name == asset_name:
-                response = self.player.buy_asset(a)
+                response, success = self.player.buy_asset(a)
                 bought_asset = a
                 break
+
+        # renaming assets
+        def rename_asset():
+            if bought_asset != None and success:
+                def change_name(name: str):
+                    if name == "":
+                        return
+                    
+                    bought_asset.name = "House: " + name
+
+                    if bought_asset.liability != None:
+                        bought_asset.liability["name"] += ": " + name
+
+                self.view.input_popup("Enter a name for your asset:", change_name)
             
         # updating UI and popups
         self.update_ui()
-        self.view.popup_display(response)
-
-        if bought_asset != None:
-            def change_name(name: str):
-                if name == "":
-                    return
-                
-                bought_asset.name = "House: " + name
-
-                if bought_asset.liability != None:
-                    bought_asset.liability["name"] += ": " + name
-
-            self.view.input_popup("Enter a name for your asset:", change_name)
+        self.view.popup_display(response, lambda :rename_asset())
         
     def sell_asset(self, asset_name):
         for a in self.player.assets:

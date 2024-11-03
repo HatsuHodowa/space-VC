@@ -11,19 +11,26 @@ class Player:
         self.job = job
 
     def buy_asset(self, asset: Asset):
+
+        # checking if already owned
+        for other_asset in self.assets:
+            if asset == other_asset:
+                return "You already own this!", False
+
+        # buying asset
         if asset.liability:
             if self.credit_score < 500:
-                return "Not enough credit!"
+                return "Not enough credit! Need 500.", False
             down_payment = asset.value - asset.liability["debt_amount"]
             self.cash -= down_payment
             self.buy_liability(asset.liability)
         else:
             if self.cash < asset.value:
-                return "Insufficient funds!"
+                return "Insufficient funds!", False
             self.cash -= asset.value
         asset.purchase_price = asset.value
         self.assets.append(asset)
-        return "Successful purchase!"
+        return "Successful purchase!", True
 
     def buy_liability(self, liability: Liability):
         self.liabilities.append(liability)

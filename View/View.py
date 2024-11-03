@@ -128,7 +128,7 @@ class View:
         # close button
         confirm.config(command=on_confirm)
     
-    def popup_display(self, message: str):
+    def popup_display(self, message: str, destroy_callback=None):
         """
         Creates a popup display and returns a function that removes that popup display upon calling.
         """
@@ -147,9 +147,15 @@ class View:
 
         # return function
         def remove():
+
+            # destroying popup
             label.destroy()
             frame.destroy()
             self.current_popup = None
+
+            # destroy callback
+            if destroy_callback != None:
+                destroy_callback()
         
         # close button
         ok_button.config(command=remove)
