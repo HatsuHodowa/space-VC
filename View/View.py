@@ -78,7 +78,7 @@ class View:
 
         self.assets = tk.StringVar(self.window, "Assets: 0")
         self.liabilities = tk.StringVar(self.window, "Liabilities: 0")
-        self.ra = tk.StringVar(self.window, "Risk Adversion: 0")
+        self.ra = tk.StringVar(self.window, "Risk Aversion: 0")
 
         # styling defaults
         self.frame_styling = {"bg":PRIM_COLOR, "highlightbackground":SEC_COLOR, "highlightthickness":5}
@@ -257,7 +257,7 @@ class View:
         if "liabilities" in stats_dict:
             self.liabilities.set("Liabilities: $" + View.format_number(stats_dict["liabilities"]))
         if "ra" in stats_dict:
-            self.ra.set("Risk Adversion: " + str(stats_dict["ra"]))
+            self.ra.set("Risk Aversion: " + str(stats_dict["ra"]))
         # reloading menu
         if self.current_menu == "in_game":
             self.set_menu(self.current_menu)
