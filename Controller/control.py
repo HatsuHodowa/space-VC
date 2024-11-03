@@ -18,6 +18,7 @@ from models import Player
 from models import Liability
 from models import Job
 from models import Game
+import market_levels
 
 
 class SpaceVC:
@@ -26,7 +27,10 @@ class SpaceVC:
         self.player = self.game.player
         
         self.level= "Earth"
+        #create data
+
         # load data
+
         with open("../game_data.json", "r") as file:
             self.data = json.load(file)
 
