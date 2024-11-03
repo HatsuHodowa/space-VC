@@ -11,18 +11,30 @@ class Player:
         self.job = job
 
     def buy_asset(self, asset: Asset):
+        if asset.liability:
+            if self.credit_score < 500:
+                return "Not enough credit!"
+            down_payment = asset.value - asset.liability.debt_amount
+            self.cash -= down_payment
+            self.buy_liability(asset.liability)
+        else:
+            if self.cash < asset.value:
+                return "Insufficient funds!"
+            self.cash -= asset.value
+        asset.purchase_price = asset.value
         self.assets.append(asset)
-        if asset.purchase_price > self.cash:
-            print("Insufficient Balance!")
-            return
-        self.cash -= asset.purchase_price
+        return "Successful purchase!"
 
     def buy_liability(self, liability: Liability):
         self.liabilities.append(liability)
 
     def sell_asset(self, asset: Asset):
         self.assets.remove(asset)
-        self.cash += asset.value
+        if asset.liability:
+            self.sell_liability(asset.liability)
+            self.cash += (asset.value - asset.liability.debt_amount)
+        else:
+            self.cash += asset.value
 
     def sell_liability(self, liability):
         self.liabilities.remove(liability)
@@ -33,10 +45,7 @@ class Player:
     def update_credit_score(self, adjustment):
         self.credit_score = min(850, self.credit_score * adjustment)
 
-    def monthly_update(self, payment_amount, liability: Liability):
-        if liability.months_left == 0:
-            self.collections_remove_liability(liability)
-            return
+    def pay_loan(self, payment_amount, liability: Liability):
         amount_owed = liability.debt_amount / liability.months_left
         if payment_amount < amount_owed:
             penalty = (amount_owed - payment_amount) / amount_owed
@@ -44,7 +53,9 @@ class Player:
         else:
             penalty = 1 - (amount_owed - payment_amount) / amount_owed
             self.update_credit_score(1 + 0.1 * penalty)
-        liability.pay_loan(payment_amount)
+        remaining_balance = liability.pay_loan(payment_amount)
+        if remaining_balance == 0:
+            self.sell_liability(liability)
             
 
     def collections_remove_liability(self, liability: Liability):

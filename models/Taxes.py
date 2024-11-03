@@ -1,9 +1,14 @@
+from models.Asset import Asset
 class Taxes:
     def __init__(self) -> None:
         self.taxable_income = 0
         self.profits = 0
         self.property_tax = 0
         self.business_tax = 0
+        self.income_tax_owed = 0
+        self.capitals_gains_tax_owed = 0
+        self.property_tax_owed = 0
+        self.business_tax_owed = 0
         self.brackets = {
             10**3: 0.1,
             10**5: 0.12,
@@ -14,13 +19,18 @@ class Taxes:
             10**15: 0.37,
             10**17: 0.43
         }
+        self.property_tax_brackets = {
+            "Earth": 0.05,
+            "Moon": 0.10,
+            "Venus": 0.15,
+            "Mars": 0.20,
+            "Mercury": 0.22,
+            "Jupiter": 0.24,
+            "Saturn": 0.26,
+            "Uranus": 0.28,
+            "Neptune": 0.3
+        }
 
-    def pay_tax(self, income_payment, capital_gains_payment, property_payment, business_payment):
-        self.taxable_income -= income_payment
-        self.profits -= capital_gains_payment
-        self.property_tax -= property_payment
-        self.business_tax -= business_payment
-    
     def report_income(self, income):
         self.taxable_income += income
     
@@ -33,10 +43,33 @@ class Taxes:
     def report_business(self, business):
         self.business_tax += business.value
 
-    def calculate_income_business_tax(self):
+    def calculate_income_tax(self):
         income_tax = 0
-        business_tax = 0
-        for bracket in self.brackets:
+        prev = 0
+        for bracket, rate in self.brackets.items():
             if self.taxable_income > bracket:
-                taxable_income = self.taxable_income * bracket
-                tax_on_income = taxable_income
+                income_tax += (bracket - prev) * rate
+            else:
+                income_tax += (self.taxable_income - prev) * rate
+                break
+            prev = bracket
+        self.income_tax_owed += income_tax
+
+    def calculate_income_business_tax(self):
+        business_tax = 0
+        prev = 0
+        for bracket, rate in self.brackets.items():
+            if self.taxable_income > bracket:
+                business_tax += (bracket - prev) * rate
+            else:
+                business_tax += (self.taxable_income - prev) * rate
+                break
+            prev = bracket
+        self.business_tax_owed += business_tax
+            
+    def calculate_capital_gains_tax(self):
+        self.capitals_gains_tax_owed += 0.15 * self.profits
+
+    def calculate_property_tax(self, property: Asset, planet):
+        rate = self.property_tax_brackets[planet]
+        self.property_tax_owed += rate * property.value
