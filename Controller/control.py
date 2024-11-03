@@ -148,18 +148,15 @@ class SpaceVC:
         self.update_ui()
 
     def monthly_update(self):
-        if self.game.months % 12 == 3 and self.player.calculated_taxes() >0:
-            return "Taxes due " + str(self.player.calculated_taxes())
+        if self.game.months % 12 == 3:
+            print('taxes due') # TODO
+            #return "Taxes due " + str(self.player.calculate_all_taxes())
         self.game.monthly_update()
         self.update_ui()
 
     def pay_all_taxes(self):
         self.player.pay_all_taxes()
         self.update_ui()
-
-    def update_model(self):
-        # TODO: Update player model based on user actions
-        pass 
 
 if __name__ == "__main__":
     SpaceVC()
