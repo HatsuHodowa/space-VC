@@ -90,38 +90,42 @@ class SpaceVC:
                 break
         self.update_ui()
         self.view.popup_display(response)
+        
     def sell_asset(self, asset_name):
         for a in self.player.assets:
             if a.name == asset_name:
                 self.player.sell_asset(a)
                 break
         self.update_ui()
+
     def buy_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.buy_liability(l)
                 break
         self.update_ui()
+
     def sell_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.sell_liability(l)
                 break
         self.update_ui()
+
     def get_job(self, job_name):
         for j in self.data[self.level][1]:
             if j.title == job_name:
                 self.player.get_job(j)
                 break
         self.update_ui()
+
     def monthly_update(self):
         self.game.monthly_update()
         self.update_ui()
+
     def update_model(self):
         # TODO: Update player model based on user actions
         pass 
-
-
 
 if __name__ == "__main__":
     SpaceVC()
