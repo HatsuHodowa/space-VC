@@ -52,6 +52,8 @@ class SpaceVC:
 
         self.data = convert_to_list(self.data)
         self.levels = list(self.data.keys())
+      
+        
 
         root = tk.Tk()
         self.view = View.View(root, self)
@@ -96,6 +98,11 @@ class SpaceVC:
         if bought_asset and bought_asset.name == f"{self.game.level} Rocket":
             #self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
             self.game.level_up()
+            if self.game.level == "END":
+                self.view.popup_display("Congratulations! You've completed the game!")
+       
+          
+            
             
             
 
