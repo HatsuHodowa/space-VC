@@ -84,15 +84,24 @@ class SpaceVC:
         self.view.update_stats(stats_dict)
 
     def buy_asset(self, asset_name):
+
+        # finding asset
+        bought_asset = None
         for a in self.data[self.level][0]:
             if a.name == asset_name:
                 response = self.player.buy_asset(a)
+                bought_asset = a
                 break
+            
+        # updating UI and popups
         self.update_ui()
         self.view.popup_display(response)
 
-        if response == "Successful purchase!":
-            self.view.input_popup("Enter a name for your asset:", lambda name: )
+        if bought_asset != None:
+            def change_name(name: str):
+                bought_asset["name"] = name
+
+            self.view.input_popup("Enter a name for your asset:", change_name)
         
     def sell_asset(self, asset_name):
         for a in self.player.assets:
