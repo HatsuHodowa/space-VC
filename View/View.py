@@ -280,7 +280,8 @@ class View:
             cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
-            liability.config(text="Liability: " + asset.liability["name"])
+            if asset.liability != None:
+                liability.config(text="Liability: " + asset.liability["name"])
             
             # adding items
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -369,6 +370,8 @@ class View:
         mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        buy = tk.Button(data_frame, text="Buy", bg=PRIM_COLOR, font=self.small_font)
+        sell = tk.Button(data_frame, text="Sell", bg=PRIM_COLOR, font=self.small_font)
         # adding to display
         bottom_frame.columnconfigure(0, weight=1)
         bottom_frame.columnconfigure(1, weight=0)
@@ -402,14 +405,22 @@ class View:
             cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
-            liability.config(text="Liability: " + asset.liability["name"])
+            if asset.liability != None:
+                liability.config(text="Liability: " + asset.liability["name"])
+
+            
+
+            buy.config(command=lambda :self.control.buy_asset(asset_name))
+            sell.config(command=lambda : self.control.sell_asset(asset_name))
 
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
             cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
             mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
-            std_apr.grid(column=0, row=3, padx=(5, 15), pady=5, stick="W")
-            liability.grid(column=0, row=4, padx=(5, 15), pady=5, stick="W")
-            
+            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
+            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+            buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
+            sell.grid(column=2, row=1, padx=(5, 15), pady=5, sticky="EW")
+
 
 
 

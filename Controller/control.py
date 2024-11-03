@@ -61,7 +61,7 @@ class SpaceVC:
         self.data = convert_to_list(self.data)
 
         # testing
-        self.player.cash += 1001023052035
+        self.player.cash += 500000
         self.buy_asset("House")
         self.buy_asset("Car")
         self.buy_liability("Mortgage")
@@ -87,6 +87,7 @@ class SpaceVC:
         self.view.update_stats( stats_dict)
 
     def buy_asset(self, asset_name):
+        print(f"Buying {asset_name}")
         for a in self.data[self.level][0]:
             if a.name == asset_name:
                 self.player.buy_asset(a)
