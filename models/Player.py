@@ -42,8 +42,6 @@ class Player:
     def buy_liability(self, sample_liability: Liability) -> Liability:
         liability = copy.deepcopy(sample_liability)
         self.liabilities.append(liability)
-        print('new liability')
-        print(liability)
         return liability
 
     def sell_asset(self, asset: Asset):
