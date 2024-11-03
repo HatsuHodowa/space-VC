@@ -101,14 +101,16 @@ class Player:
         total = 0
         sum_of_values = sum([asset.value for asset in self.assets])
         for asset in self.assets:
+            print(asset.name, asset.value, asset.apr_mean, asset.apr_std)
             weight = asset.value / sum_of_values
-            if asset.apr_mean < 0.03:
+            if asset.apr_mean <= 0.03:
                 weight = 0
-            if int(asset.apr_std) == 0: #edge case, make it really small
+            if asset.apr_std < 0.00001 : #edge case, make it really small
                 total += weight * 2 / (0.00001 ** 2) * (asset.apr_mean - 0.03)
             else:
                 risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
                 total += weight * risk
+        print(total)
         return total
     
 

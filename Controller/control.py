@@ -75,7 +75,7 @@ class SpaceVC:
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months,
-            "ra": self.player.risk_aversion
+            "ra": self.player.risk_aversion,
         }
         self.view.update_stats(stats_dict)
 
