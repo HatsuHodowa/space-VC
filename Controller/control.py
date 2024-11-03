@@ -64,6 +64,7 @@ class SpaceVC:
         stats_dict = {
             "income": self.player.income,
             "balance": self.player.cash,
+            "level": self.game.level,
             "net_worth": self.player.balance,
             "assets": sum([asset.value for asset in self.player.assets]),
             "liabilities": sum([liability.debt_amount for liability in self.player.liabilities]),
