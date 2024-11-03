@@ -27,6 +27,7 @@ MONTHS = [
     "December"
 ]
 NUMBER_SUFFIXES = [
+    "",
     " K",
     " M",
     " B",
@@ -236,11 +237,11 @@ class View:
 
         scrollbar.config(command=listbox.yview)
 
-        value = tk.Label(data_frame, font=self.small_font, text="Value: $0", bg=PRIM_COLOR)
-        cash_flow = tk.Label(data_frame, font=self.small_font, text="Cash Flow: $0/month", bg=PRIM_COLOR)
-        mean_apr = tk.Label(data_frame, font=self.small_font, text="Mean Return Rate: $0", bg=PRIM_COLOR)
-        std_apr = tk.Label(data_frame, font=self.small_font, text="Std Return Rate: $0", bg=PRIM_COLOR)
-        liability = tk.Label(data_frame, font=self.small_font, text="Liability: None", bg=PRIM_COLOR)
+        value = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        cash_flow = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
 
         # adding to display
         bottom_frame.columnconfigure(0, weight=1)
@@ -252,15 +253,34 @@ class View:
         scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
         data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
 
+        # getting data
+        assets: list = self.control.player.assets
+
         # adding assets
-        for i in range(10):
-            listbox.insert(0, "Hello world " + str(i))
+        for asset in assets:
+            listbox.insert(tk.END, asset.name)
 
         # configuring listbox
         def listbox_select(event: tk.Event):
+            if len(assets) == 0:
+                return
+
+            # finding asset based on selection
             selected = event.widget.curselection()
+            asset_name = listbox.get(selected[0])
+            asset = None
+
+            for other_asset in assets:
+                if other_asset.name == asset_name:
+                    asset = other_asset
+                    break
 
             # updating information
+            value.config(text="Value: $" + str(View.format_number(asset.value)))
+            cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
+            mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
+            std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
+            liability.config(text="Liability: " + asset.liability["name"])
             
             # adding items
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -270,20 +290,6 @@ class View:
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
-        
-        # list all current assets
-        # buying assets
-        # selling assets
-
-        """
-        for each asset
-            value: number
-            income: number
-            average return rate: number
-            STD return rate: number
-            liability: str
-        """
-        pass
 
     def liabilities_tab(self, bottom_frame: tk.Frame):
 
