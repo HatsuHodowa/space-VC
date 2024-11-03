@@ -13,12 +13,14 @@ from View import View
 from models import Player
 from models import Liability
 from models import Job
+from models import Game
 
 
 class SpaceVC:
     def __init__(self) -> None:
-        self.player = Player.Player()
-        self.month = 0
+        self.game = Game.Game()
+        self.player = self.game.player
+        
         self.level= "Earth"
         # load data
         with open("../game_data.json", "r") as file:
@@ -68,7 +70,7 @@ class SpaceVC:
             "liabilities": sum([asset.value for asset in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
-            "month": self.month
+            "month": self.game.months
         }
         self.view.update_stats( stats_dict)
 
@@ -97,6 +99,10 @@ class SpaceVC:
             if j.title == job_name:
                 self.player.get_job(j)
                 break
+    def monthly_update(self):
+        self.game.monthly_update()
+        self.update_ui()
+        
 
     
     def update_model(self):
