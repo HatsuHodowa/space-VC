@@ -85,31 +85,41 @@ class View:
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
     
-    def input_popup(self, message: str) -> str:
+    def input_popup(self, prompt: str, callback):
         """
         Creates a popup display with an input, and returns the value that is inputted.
         """
 
-        self.current_popup = lambda :self.input_popup(message)
+        # setting properties / values
+        self.current_popup = lambda :self.input_popup(prompt)
+        entry_text = tk.StringVar(self.window)
 
         # creating popup frame
         frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
         frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
 
-        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
-        ok_button = tk.Button(frame, bg=GREEN, text="OK", width=10, font=self.small_font)
+        label = tk.Label(frame, bg=PRIM_COLOR, text=prompt, font=self.small_font, wraplength=POPUP_SIZE[0])
+        entry = tk.Entry(frame, textvariable=entry_text, font=self.small_font)
+        confirm = tk.Button(frame, bg=GREEN, text="Confirm", width=10, font=self.small_font)
 
         label.grid(column=0, row=0, **self.padding_10)
-        ok_button.grid(column=0, row=1, **self.padding_10)
+        entry.grid(column=0, row=1, **self.padding_10)
+        confirm.grid(column=0, row=2, **self.padding_10)
 
         # return function
-        def remove():
+        def on_confirm():
+
+            # running callback
+            callback(entry_text.get())
+
+            # destroying popup
             label.destroy()
+            entry.destroy()
             frame.destroy()
             self.current_popup = None
         
         # close button
-        ok_button.config(command=remove)
+        confirm.config(command=on_confirm)
     
     def popup_display(self, message: str):
         """

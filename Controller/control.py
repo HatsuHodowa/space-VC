@@ -90,6 +90,9 @@ class SpaceVC:
                 break
         self.update_ui()
         self.view.popup_display(response)
+
+        if response == "Successful purchase!":
+            self.view.input_popup("Enter a name for your asset:", lambda name: )
         
     def sell_asset(self, asset_name):
         for a in self.player.assets:
