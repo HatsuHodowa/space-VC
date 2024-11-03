@@ -181,7 +181,7 @@ class View:
         income_tax = View.format_number(player.tax.income_tax_owed)
         capital_tax = View.format_number(player.tax.capital_gains_tax_owed)
         property_tax = View.format_number(player.tax.property_tax_owed)
-        business_tax = View.format_number(player.tax.business_tax_owed)
+        business_income = View.format_number(player.tax.business_tax_owed)
         total_tax = View.format_number(player.tax.taxes_owed)
 
         # creating popup frame
@@ -192,7 +192,7 @@ class View:
         income = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Income Tax: $" + income_tax)
         capital = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Capital Gains Tax: $" + capital_tax)
         property = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Property Tax: $" + property_tax)
-        business = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Business Tax: $" + business_tax)
+        business = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Business Tax: $" + business_income)
         total = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Total: $" + total_tax)
         ok_button = tk.Button(frame, bg=GREEN, text="Pay", width=10, font=self.small_font)
 

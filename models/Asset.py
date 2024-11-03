@@ -18,9 +18,12 @@ class Asset:
         self.asset_type = asset_type
         self.liability = liability
 
-        # converting liability to object
+        # type conversions
         if type(self.liability) == dict:
             self.liability = Liability(**self.liability)
+
+        if type(self.asset_type) == str:
+            self.asset_type = AssetType[self.asset_type]
 
     def to_dict(self):
         return {

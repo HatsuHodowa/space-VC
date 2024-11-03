@@ -17,15 +17,15 @@ class Game:
             self.player.cash += job_income
             self.player.tax.report_job_income(job_income)
 
-        #appreciate assets
+        # appreciate assets
         for asset in self.player.assets:
             asset.appreciate()
             self.player.cash += asset.income
-            if (asset.asset_type == AssetType.BUSINESS):
-                self.player.tax.business_tax += asset.income
-            if (asset.asset_type == AssetType.PROPERTY):
-                self.player.tax.calculate_property_tax(asset)
 
+            if (asset.asset_type == AssetType.BUSINESS):
+                self.player.tax.report_business_income(asset.income)
+            if (asset.asset_type == AssetType.SECURITY):
+                self.player.tax.report_job_income(asset.income)
 
         for liability in self.player.liabilities:
             monthly_payment = liability.monthly_payment
