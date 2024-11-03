@@ -173,7 +173,6 @@ class SpaceVC:
         elif status == 1:
             self.sell_to_pay_taxes_event()
         else:
-            print('unlock')
             self.game.tax_lock = False
             self.update_ui()
 

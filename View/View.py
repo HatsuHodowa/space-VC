@@ -352,9 +352,7 @@ class View:
             self.set_menu("in_game", new_tab)
 
         def on_next_button():
-            print('next button')
             if self.control.game.tax_lock == False:
-                print('unlocked')
                 self.control.monthly_update()
 
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
