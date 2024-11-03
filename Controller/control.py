@@ -76,7 +76,7 @@ class SpaceVC:
             "balance": self.player.cash,
             "net_worth": self.player.balance,
             "assets": sum([asset.value for asset in self.player.assets]),
-            "liabilities": sum([asset.debt_amount for asset in self.player.liabilities]),
+            "liabilities": sum([asset["debt_amount"] for asset in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months
@@ -86,41 +86,46 @@ class SpaceVC:
     def buy_asset(self, asset_name):
         for a in self.data[self.level][0]:
             if a.name == asset_name:
-                self.player.buy_asset(a)
+                response = self.player.buy_asset(a)
                 break
         self.update_ui()
+        self.view.popup_display(response)
+        
     def sell_asset(self, asset_name):
         for a in self.player.assets:
             if a.name == asset_name:
                 self.player.sell_asset(a)
                 break
         self.update_ui()
+
     def buy_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.buy_liability(l)
                 break
         self.update_ui()
+
     def sell_liability(self, liability_name):
         for l in self.data[self.level][2]:
             if l.name == liability_name:
                 self.player.sell_liability(l)
                 break
         self.update_ui()
+
     def get_job(self, job_name):
         for j in self.data[self.level][1]:
             if j.title == job_name:
                 self.player.get_job(j)
                 break
         self.update_ui()
+
     def monthly_update(self):
         self.game.monthly_update()
         self.update_ui()
+
     def update_model(self):
         # TODO: Update player model based on user actions
         pass 
-
-
 
 if __name__ == "__main__":
     SpaceVC()

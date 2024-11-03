@@ -14,7 +14,7 @@ class Player:
         if asset.liability:
             if self.credit_score < 500:
                 return "Not enough credit!"
-            down_payment = asset.value - asset.liability.debt_amount
+            down_payment = asset.value - asset.liability["debt_amount"]
             self.cash -= down_payment
             self.buy_liability(asset.liability)
         else:
@@ -74,7 +74,7 @@ class Player:
     
     @property
     def balance(self):
-        return self.cash + sum([asset.value for asset in self.assets]) - sum([liability.debt_amount for liability in self.liabilities])
+        return self.cash + sum([asset.value for asset in self.assets]) - sum([liability["debt_amount"] for liability in self.liabilities])
     
     @property
     def risk_aversion(self):
