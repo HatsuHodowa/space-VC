@@ -99,7 +99,13 @@ class SpaceVC:
 
         if bought_asset != None:
             def change_name(name: str):
-                bought_asset["name"] = name
+                if name == "":
+                    return
+                
+                bought_asset.name = "House: " + name
+
+                if bought_asset.liability != None:
+                    bought_asset.liability["name"] += ": " + name
 
             self.view.input_popup("Enter a name for your asset:", change_name)
         

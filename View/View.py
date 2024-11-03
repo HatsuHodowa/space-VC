@@ -37,6 +37,13 @@ NUMBER_SUFFIXES = [
     " Qn"
 ]
 STARTING_YEAR = 3000
+TAB_BACKGROUNDS = {
+    "stats_tab" : "../View/backgrounds/unicorn space.jpg",
+    "assets_tab" : "../View/backgrounds/assets.jpg",
+    "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
+    "asset_market_tab" : "../View/backgrounds/markets.jpg",
+    "taxes_tab" : "../View/backgrounds/tax.jpg"
+}
 
 # class
 class View:
@@ -214,7 +221,15 @@ class View:
         for widget in self.window.winfo_children():
             widget.destroy()
 
-    def in_game(self, current_tab: str = None, background="../View/backgrounds/unicorn space.jpg"):
+    def in_game(self, current_tab: str = None, background=None):
+
+        # managing background
+        if current_tab == None:
+            current_tab = self.current_tab
+
+        if background == None:
+            background = TAB_BACKGROUNDS[current_tab]
+            
         self.set_background(background)
 
         # top bar
@@ -256,8 +271,6 @@ class View:
         taxes_tab.grid(column=4, row=0)
 
         # coloring selected tab
-        if current_tab == None:
-            current_tab = self.current_tab
         self.current_tab = current_tab
 
         if current_tab == "stats_tab":
@@ -272,14 +285,14 @@ class View:
             taxes_tab.config(bg=SELECTED_COLOR)
 
         # connecting buttons
-        def switch_tab(new_tab: str, background: str = None):
-            self.set_menu("in_game", new_tab, background)
+        def switch_tab(new_tab: str):
+            self.set_menu("in_game", new_tab)
 
-        stats_tab.config(command=lambda :switch_tab("stats_tab", "../View/backgrounds/unicorn space.jpg"))
-        assets_tab.config(command=lambda :switch_tab("assets_tab", "../View/backgrounds/assets.jpg" ))
-        liabilities_tab.config(command=lambda :switch_tab("liabilities_tab", "../View/backgrounds/Liabilities.jpg"))
-        asset_market_tab.config(command=lambda :switch_tab("asset_market_tab", "../View/backgrounds/markets.jpg"))
-        taxes_tab.config(command=lambda :switch_tab("taxes_tab", "../View/backgrounds/tax.jpg"))
+        stats_tab.config(command=lambda :switch_tab("stats_tab"))
+        assets_tab.config(command=lambda :switch_tab("assets_tab"))
+        liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
+        asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
+        taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
 
         # adding tab content for current tab
         if current_tab != None:

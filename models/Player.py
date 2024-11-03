@@ -32,7 +32,7 @@ class Player:
         self.assets.remove(asset)
         if asset.liability:
             self.sell_liability(asset.liability)
-            self.cash += (asset.value - asset.liability.debt_amount)
+            self.cash += (asset.value - asset.liability["debt_amount"])
         else:
             self.cash += asset.value
 
