@@ -1,3 +1,5 @@
+from models.Asset import Asset
+
 class Liability:
 
     def __init__(self, name, debt_amount, interest_rate, months_left=12) -> None:
@@ -24,7 +26,7 @@ class Liability:
             
     @property
     def monthly_payment(self):
-        return self.debt_amount / 12
+        return self.debt_amount / self.months_left
     
     # TO-DO: Check the autopay functionality in the game controller.
 
