@@ -3,33 +3,36 @@
         "assets": [
             {
                 "name": "House",
-                "value": 323520,
+                "value": 270969,
+                "purchase_price": 275000,
                 "income": 1500,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
                 "liability": {
                     "name": "Mortgage",
-                    "debt_amount": 247966,
+                    "debt_amount": 163940,
                     "interest_rate": 0.04,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Car",
-                "value": 21333,
+                "value": 23533,
+                "purchase_price": 20000,
                 "income": 0,
                 "apr_mean": 0.02,
                 "apr_std": 0.005,
                 "liability": {
                     "name": "Car Loan",
-                    "debt_amount": 16164,
+                    "debt_amount": 11351,
                     "interest_rate": 0.05,
-                    "payoff_date": 6
+                    "months_left": 6
                 }
             },
             {
                 "name": "Tech Stock",
-                "value": 8251,
+                "value": 8884,
+                "purchase_price": 10000,
                 "income": 200,
                 "apr_mean": 0.08,
                 "apr_std": 0.2,
@@ -37,7 +40,8 @@
             },
             {
                 "name": "Government Bond",
-                "value": 4195,
+                "value": 4180,
+                "purchase_price": 5000,
                 "income": 100,
                 "apr_mean": 0.03,
                 "apr_std": 0.0,
@@ -45,7 +49,8 @@
             },
             {
                 "name": "Farm Land",
-                "value": 42562,
+                "value": 42691,
+                "purchase_price": 50000,
                 "income": 300,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -53,7 +58,8 @@
             },
             {
                 "name": "Small Business",
-                "value": 75312,
+                "value": 75105,
+                "purchase_price": 75000,
                 "income": 1000,
                 "apr_mean": 0.06,
                 "apr_std": 0.02,
@@ -61,7 +67,8 @@
             },
             {
                 "name": "Earth Rocket",
-                "value": 500428,
+                "value": 528980,
+                "purchase_price": 500000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -71,41 +78,41 @@
         "careers": [
             {
                 "title": "Software Engineer",
-                "income": 78738
+                "income": 118839
             },
             {
                 "title": "Doctor",
-                "income": 134474
+                "income": 149306
             },
             {
                 "title": "Agricultural Scientist",
-                "income": 54164
+                "income": 81566
             },
             {
                 "title": "Construction Worker",
-                "income": 66581
+                "income": 55033
             },
             {
                 "title": "Small Business Owner",
-                "income": 53179
+                "income": 43281
             },
             {
                 "title": "Stock Trader",
-                "income": 73653
+                "income": 93716
             }
         ],
         "liabilities": [
             {
                 "name": "Mortgage",
-                "debt_amount": 181042,
+                "debt_amount": 174612,
                 "interest_rate": 0.04,
-                "payoff_date": 18
+                "months_left": 18
             },
             {
                 "name": "Car Loan",
-                "debt_amount": 16120,
+                "debt_amount": 11806,
                 "interest_rate": 0.05,
-                "payoff_date": 6
+                "months_left": 6
             }
         ]
     },
@@ -113,33 +120,36 @@
         "assets": [
             {
                 "name": "Lunar Habitat",
-                "value": 393669,
+                "value": 426319,
+                "purchase_price": 400000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Habitat Mortgage",
-                    "debt_amount": 309385,
+                    "debt_amount": 343966,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Moon Mining Rights",
-                "value": 348872,
+                "value": 332681,
+                "purchase_price": 300000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 233468,
+                    "debt_amount": 205126,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Lunar Solar Array",
-                "value": 121199,
+                "value": 161778,
+                "purchase_price": 150000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -147,7 +157,8 @@
             },
             {
                 "name": "Lunar Water Extraction Facility",
-                "value": 256864,
+                "value": 227383,
+                "purchase_price": 250000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -155,7 +166,8 @@
             },
             {
                 "name": "Lunar Research Lab",
-                "value": 351775,
+                "value": 369079,
+                "purchase_price": 350000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -163,7 +175,8 @@
             },
             {
                 "name": "Moon Rocket",
-                "value": 1048648,
+                "value": 1036488,
+                "purchase_price": 1000000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -173,41 +186,41 @@
         "careers": [
             {
                 "title": "Lunar Engineer",
-                "income": 99151
+                "income": 117693
             },
             {
                 "title": "Astrogeologist",
-                "income": 102914
+                "income": 94673
             },
             {
                 "title": "Water Processing Technician",
-                "income": 67332
+                "income": 63255
             },
             {
                 "title": "Solar Array Technician",
-                "income": 62653
+                "income": 62158
             },
             {
                 "title": "Lunar Miner",
-                "income": 55800
+                "income": 75923
             },
             {
                 "title": "Habitat Manager",
-                "income": 93404
+                "income": 99015
             }
         ],
         "liabilities": [
             {
                 "name": "Habitat Mortgage",
-                "debt_amount": 268182,
+                "debt_amount": 273170,
                 "interest_rate": 0.05,
-                "payoff_date": 24
+                "months_left": 24
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 240291,
+                "debt_amount": 197714,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -215,33 +228,36 @@
         "assets": [
             {
                 "name": "Venus Dome",
-                "value": 432344,
+                "value": 435688,
+                "purchase_price": 400000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Dome Mortgage",
-                    "debt_amount": 349087,
+                    "debt_amount": 319476,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Atmosphere Mining Rights",
-                "value": 282393,
+                "value": 337156,
+                "purchase_price": 300000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 188517,
+                    "debt_amount": 157307,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Solar Energy Array",
-                "value": 170008,
+                "value": 142685,
+                "purchase_price": 130000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -249,7 +265,8 @@
             },
             {
                 "name": "Venus Water Extraction Facility",
-                "value": 274505,
+                "value": 276112,
+                "purchase_price": 250000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -257,7 +274,8 @@
             },
             {
                 "name": "Venus Research Station",
-                "value": 348607,
+                "value": 371632,
+                "purchase_price": 350000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -265,7 +283,8 @@
             },
             {
                 "name": "Venus Rocket",
-                "value": 969193,
+                "value": 1045762,
+                "purchase_price": 1000000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -275,41 +294,41 @@
         "careers": [
             {
                 "title": "Atmospheric Processor Engineer",
-                "income": 104508
+                "income": 80044
             },
             {
                 "title": "Astrobiologist",
-                "income": 99742
+                "income": 86747
             },
             {
                 "title": "Solar Energy Specialist",
-                "income": 88716
+                "income": 70457
             },
             {
                 "title": "Mining Operator",
-                "income": 79762
+                "income": 86778
             },
             {
                 "title": "Venus Dome Supervisor",
-                "income": 89156
+                "income": 80309
             },
             {
                 "title": "Water Extraction Technician",
-                "income": 84549
+                "income": 71312
             }
         ],
         "liabilities": [
             {
                 "name": "Dome Mortgage",
-                "debt_amount": 302820,
+                "debt_amount": 308157,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 203731,
+                "debt_amount": 198521,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -317,33 +336,36 @@
         "assets": [
             {
                 "name": "Mars Rover",
-                "value": 155604,
+                "value": 176666,
+                "purchase_price": 150000,
                 "income": 500,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
                 "liability": {
                     "name": "Rover Loan",
-                    "debt_amount": 111554,
+                    "debt_amount": 85118,
                     "interest_rate": 0.05,
-                    "payoff_date": 12
+                    "months_left": 12
                 }
             },
             {
                 "name": "Martian Colony Unit",
-                "value": 239357,
+                "value": 229205,
+                "purchase_price": 250000,
                 "income": 3000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Colony Unit Mortgage",
-                    "debt_amount": 202569,
+                    "debt_amount": 189490,
                     "interest_rate": 0.04,
-                    "payoff_date": 24
+                    "months_left": 24
                 }
             },
             {
                 "name": "Solar Farm",
-                "value": 90689,
+                "value": 94902,
+                "purchase_price": 90000,
                 "income": 800,
                 "apr_mean": 0.05,
                 "apr_std": 0.015,
@@ -351,7 +373,8 @@
             },
             {
                 "name": "Martian Mineral Rights",
-                "value": 137964,
+                "value": 146594,
+                "purchase_price": 120000,
                 "income": 1500,
                 "apr_mean": 0.06,
                 "apr_std": 0.02,
@@ -359,7 +382,8 @@
             },
             {
                 "name": "Martian Research Facility",
-                "value": 215351,
+                "value": 213048,
+                "purchase_price": 200000,
                 "income": 2500,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -367,7 +391,8 @@
             },
             {
                 "name": "Mars Rocket",
-                "value": 782883,
+                "value": 842510,
+                "purchase_price": 800000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -377,41 +402,41 @@
         "careers": [
             {
                 "title": "Rover Technician",
-                "income": 78915
+                "income": 82041
             },
             {
                 "title": "Martian Geologist",
-                "income": 73689
+                "income": 83169
             },
             {
                 "title": "Solar Farm Manager",
-                "income": 77598
+                "income": 75844
             },
             {
                 "title": "Mineral Extraction Specialist",
-                "income": 83375
+                "income": 89835
             },
             {
                 "title": "Colony Unit Supervisor",
-                "income": 112958
+                "income": 113919
             },
             {
                 "title": "Mars Research Scientist",
-                "income": 114856
+                "income": 121087
             }
         ],
         "liabilities": [
             {
                 "name": "Rover Loan",
-                "debt_amount": 93170,
+                "debt_amount": 107743,
                 "interest_rate": 0.05,
-                "payoff_date": 12
+                "months_left": 12
             },
             {
                 "name": "Colony Unit Mortgage",
-                "debt_amount": 180580,
+                "debt_amount": 237610,
                 "interest_rate": 0.04,
-                "payoff_date": 24
+                "months_left": 24
             }
         ]
     },
@@ -419,33 +444,36 @@
         "assets": [
             {
                 "name": "Mercury Habitat",
-                "value": 396556,
+                "value": 354833,
+                "purchase_price": 425000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Habitat Mortgage",
-                    "debt_amount": 257856,
+                    "debt_amount": 287089,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Mercury Mining Rights",
-                "value": 262430,
+                "value": 316170,
+                "purchase_price": 275000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 214623,
+                    "debt_amount": 223846,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Mercurial Solar Array",
-                "value": 159034,
+                "value": 172678,
+                "purchase_price": 140000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -453,7 +481,8 @@
             },
             {
                 "name": "Mercury Water Extraction Facility",
-                "value": 229995,
+                "value": 237395,
+                "purchase_price": 240000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -461,7 +490,8 @@
             },
             {
                 "name": "Mercury Research Station",
-                "value": 381685,
+                "value": 394572,
+                "purchase_price": 350000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -469,7 +499,8 @@
             },
             {
                 "name": "Mercury Rocket",
-                "value": 1020676,
+                "value": 1022835,
+                "purchase_price": 975000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -479,41 +510,41 @@
         "careers": [
             {
                 "title": "Solar Technician",
-                "income": 101434
+                "income": 71236
             },
             {
                 "title": "Mining Engineer",
-                "income": 86689
+                "income": 95560
             },
             {
                 "title": "Atmospheric Scientist",
-                "income": 77514
+                "income": 91080
             },
             {
                 "title": "Water Processing Specialist",
-                "income": 98567
+                "income": 96024
             },
             {
                 "title": "Mercury Habitat Manager",
-                "income": 119618
+                "income": 111589
             },
             {
                 "title": "Geologist",
-                "income": 107293
+                "income": 83060
             }
         ],
         "liabilities": [
             {
                 "name": "Habitat Mortgage",
-                "debt_amount": 250706,
+                "debt_amount": 283430,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 196951,
+                "debt_amount": 196708,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -521,33 +552,36 @@
         "assets": [
             {
                 "name": "Jupiter Orbital Station",
-                "value": 382265,
+                "value": 423545,
+                "purchase_price": 440000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Station Mortgage",
-                    "debt_amount": 259936,
+                    "debt_amount": 339608,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Jovian Mining Rights",
-                "value": 254373,
+                "value": 258902,
+                "purchase_price": 320000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 213301,
+                    "debt_amount": 151102,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Jupiter Solar Array",
-                "value": 159089,
+                "value": 163871,
+                "purchase_price": 160000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -555,7 +589,8 @@
             },
             {
                 "name": "Jupiter Atmospheric Processor",
-                "value": 239089,
+                "value": 229589,
+                "purchase_price": 260000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -563,7 +598,8 @@
             },
             {
                 "name": "Jupiter Research Lab",
-                "value": 370494,
+                "value": 372959,
+                "purchase_price": 380000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -571,7 +607,8 @@
             },
             {
                 "name": "Jupiter Rocket",
-                "value": 963021,
+                "value": 1009865,
+                "purchase_price": 1025000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -581,41 +618,41 @@
         "careers": [
             {
                 "title": "Orbital Engineer",
-                "income": 112914
+                "income": 85611
             },
             {
                 "title": "Atmosphere Processor Technician",
-                "income": 85351
+                "income": 75049
             },
             {
                 "title": "Gas Mining Specialist",
-                "income": 123544
+                "income": 124619
             },
             {
                 "title": "Solar Array Engineer",
-                "income": 81022
+                "income": 87146
             },
             {
                 "title": "Orbital Station Manager",
-                "income": 121343
+                "income": 135567
             },
             {
                 "title": "Research Scientist",
-                "income": 95562
+                "income": 116596
             }
         ],
         "liabilities": [
             {
                 "name": "Station Mortgage",
-                "debt_amount": 334673,
+                "debt_amount": 333281,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 243579,
+                "debt_amount": 197477,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -623,33 +660,36 @@
         "assets": [
             {
                 "name": "Saturn Orbital Station",
-                "value": 427887,
+                "value": 410877,
+                "purchase_price": 425000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Station Mortgage",
-                    "debt_amount": 275565,
+                    "debt_amount": 274340,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Titan Mining Rights",
-                "value": 322979,
+                "value": 298071,
+                "purchase_price": 300000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 213155,
+                    "debt_amount": 198946,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Saturn Solar Array",
-                "value": 146088,
+                "value": 174347,
+                "purchase_price": 135000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -657,7 +697,8 @@
             },
             {
                 "name": "Saturn Water Processing Facility",
-                "value": 277506,
+                "value": 255390,
+                "purchase_price": 250000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -665,7 +706,8 @@
             },
             {
                 "name": "Saturn Research Lab",
-                "value": 364981,
+                "value": 323912,
+                "purchase_price": 350000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -673,7 +715,8 @@
             },
             {
                 "name": "Saturn Rocket",
-                "value": 975139,
+                "value": 977845,
+                "purchase_price": 1000000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -683,41 +726,41 @@
         "careers": [
             {
                 "title": "Orbital Habitat Engineer",
-                "income": 123714
+                "income": 111533
             },
             {
                 "title": "Cryogenic Mining Specialist",
-                "income": 118662
+                "income": 124000
             },
             {
                 "title": "Solar Array Operator",
-                "income": 82658
+                "income": 80887
             },
             {
                 "title": "Water Processing Technician",
-                "income": 93744
+                "income": 72474
             },
             {
                 "title": "Orbital Station Supervisor",
-                "income": 114365
+                "income": 115809
             },
             {
                 "title": "Planetary Scientist",
-                "income": 96217
+                "income": 129571
             }
         ],
         "liabilities": [
             {
                 "name": "Station Mortgage",
-                "debt_amount": 288853,
+                "debt_amount": 286227,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 174802,
+                "debt_amount": 227206,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -725,33 +768,36 @@
         "assets": [
             {
                 "name": "Uranus Research Outpost",
-                "value": 398734,
+                "value": 417365,
+                "purchase_price": 400000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Outpost Mortgage",
-                    "debt_amount": 314934,
+                    "debt_amount": 337095,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Uranus Gas Mining Rights",
-                "value": 319432,
+                "value": 263556,
+                "purchase_price": 275000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 197725,
+                    "debt_amount": 158673,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Uranus Solar Array",
-                "value": 168736,
+                "value": 127874,
+                "purchase_price": 130000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -759,7 +805,8 @@
             },
             {
                 "name": "Uranus Water Extraction Facility",
-                "value": 278390,
+                "value": 234560,
+                "purchase_price": 240000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -767,7 +814,8 @@
             },
             {
                 "name": "Uranus Research Lab",
-                "value": 328374,
+                "value": 377135,
+                "purchase_price": 320000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -775,7 +823,8 @@
             },
             {
                 "name": "Uranus Rocket",
-                "value": 1004406,
+                "value": 1002010,
+                "purchase_price": 975000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -785,41 +834,41 @@
         "careers": [
             {
                 "title": "Cryogenic Fuel Technician",
-                "income": 87622
+                "income": 87197
             },
             {
                 "title": "Gas Mining Engineer",
-                "income": 99940
+                "income": 105093
             },
             {
                 "title": "Research Scientist",
-                "income": 96809
+                "income": 101517
             },
             {
                 "title": "Solar Panel Technician",
-                "income": 106646
+                "income": 89705
             },
             {
                 "title": "Orbital Outpost Manager",
-                "income": 104957
+                "income": 126749
             },
             {
                 "title": "Water Extraction Specialist",
-                "income": 124952
+                "income": 109410
             }
         ],
         "liabilities": [
             {
                 "name": "Outpost Mortgage",
-                "debt_amount": 257395,
+                "debt_amount": 338610,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 178596,
+                "debt_amount": 210598,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     },
@@ -827,33 +876,36 @@
         "assets": [
             {
                 "name": "Neptune Research Station",
-                "value": 396013,
+                "value": 372265,
+                "purchase_price": 425000,
                 "income": 4000,
                 "apr_mean": 0.04,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Station Mortgage",
-                    "debt_amount": 259142,
+                    "debt_amount": 254586,
                     "interest_rate": 0.05,
-                    "payoff_date": 36
+                    "months_left": 36
                 }
             },
             {
                 "name": "Neptune Gas Mining Rights",
-                "value": 284162,
+                "value": 293061,
+                "purchase_price": 300000,
                 "income": 5000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
                 "liability": {
                     "name": "Mining Rights Loan",
-                    "debt_amount": 199016,
+                    "debt_amount": 208121,
                     "interest_rate": 0.06,
-                    "payoff_date": 18
+                    "months_left": 18
                 }
             },
             {
                 "name": "Neptune Solar Array",
-                "value": 166453,
+                "value": 142628,
+                "purchase_price": 140000,
                 "income": 2000,
                 "apr_mean": 0.05,
                 "apr_std": 0.02,
@@ -861,7 +913,8 @@
             },
             {
                 "name": "Neptune Water Processing Facility",
-                "value": 268861,
+                "value": 250310,
+                "purchase_price": 245000,
                 "income": 3500,
                 "apr_mean": 0.06,
                 "apr_std": 0.025,
@@ -869,7 +922,8 @@
             },
             {
                 "name": "Neptune Research Lab",
-                "value": 346820,
+                "value": 302629,
+                "purchase_price": 360000,
                 "income": 4500,
                 "apr_mean": 0.04,
                 "apr_std": 0.015,
@@ -877,7 +931,8 @@
             },
             {
                 "name": "Neptune Rocket",
-                "value": 962657,
+                "value": 1048569,
+                "purchase_price": 1000000,
                 "income": 0,
                 "apr_mean": 0.03,
                 "apr_std": 0.01,
@@ -887,41 +942,41 @@
         "careers": [
             {
                 "title": "Deep Space Miner",
-                "income": 136343
+                "income": 134105
             },
             {
                 "title": "Cryogenic Systems Engineer",
-                "income": 127933
+                "income": 118432
             },
             {
                 "title": "Research Scientist",
-                "income": 135372
+                "income": 143753
             },
             {
                 "title": "Atmospheric Chemist",
-                "income": 103442
+                "income": 94385
             },
             {
                 "title": "Orbital Station Manager",
-                "income": 101962
+                "income": 100543
             },
             {
                 "title": "Gas Extraction Specialist",
-                "income": 120000
+                "income": 116912
             }
         ],
         "liabilities": [
             {
                 "name": "Station Mortgage",
-                "debt_amount": 322700,
+                "debt_amount": 344127,
                 "interest_rate": 0.05,
-                "payoff_date": 36
+                "months_left": 36
             },
             {
                 "name": "Mining Rights Loan",
-                "debt_amount": 213856,
+                "debt_amount": 187739,
                 "interest_rate": 0.06,
-                "payoff_date": 18
+                "months_left": 18
             }
         ]
     }
