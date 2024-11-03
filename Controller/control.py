@@ -57,8 +57,6 @@ class SpaceVC:
         self.view = View.View(root, self)
         self.update_ui()
         root.mainloop()
-        
-
 
     def update_ui(self):
         stats_dict = {
@@ -180,7 +178,7 @@ class SpaceVC:
 
         # initial popup
         def popup_confirm():
-            self.pay_all_taxes()
+            self.view.tax_popup(self.pay_all_taxes)
 
         self.view.popup_display("You don't have enough money to pay taxes! Sell some assets and pay your taxes before you can move on.", popup_confirm, "Attempt Pay")
 

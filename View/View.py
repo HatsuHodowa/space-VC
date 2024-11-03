@@ -7,6 +7,7 @@ import json
 # constants
 WINDOW_SIZE = (900, 600)
 POPUP_SIZE = (400, 200)
+ARROW_SIZE = (80, 80)
 PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"

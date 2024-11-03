@@ -36,6 +36,7 @@ class Taxes:
         self.business_income += income
 
     def calculate_income_tax(self):
+        self.income_tax_owed = 15000
         income = self.job_income
         tax = 0
 
