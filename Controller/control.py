@@ -101,6 +101,9 @@ class SpaceVC:
                 break
 
         bought_asset, response = self.player.buy_asset(sample_asset)
+        if bought_asset and bought_asset.name == f"{self.game.level} Rocket":
+            print("go to next level ")
+            
 
         # renaming assets
         def rename_asset():

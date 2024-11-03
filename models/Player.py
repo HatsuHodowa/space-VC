@@ -15,7 +15,6 @@ class Player:
         self.tax = Taxes()
 
     def buy_asset(self, sample_asset: Asset):
-
         # buying asset
         new_liability = None
         if sample_asset.liability:

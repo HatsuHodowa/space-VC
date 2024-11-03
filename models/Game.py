@@ -24,6 +24,7 @@ class Game:
             if (asset.asset_type == AssetType.PROPERTY):
                 self.player.tax.calculate_property_tax(asset)
 
+
         for liability in self.player.liabilities:
             monthly_payment = liability.monthly_payment
             self.player.pay_loan(min(monthly_payment, self.player.cash), liability)
@@ -31,13 +32,23 @@ class Game:
                 self.player.collections_remove_liability(liability)
             liability.calculate_interest()
             liability.months_left -= 1
-
     
-    def game_status(self):
-        print("months ", self.months)
-        print("balance ", self.player.balance)
-        print("income tax owed", self.player.tax.income_tax_owed)
-        print("business tax owed", self.player.tax.business_tax_owed)
-        print("property tax owed", self.player.tax.property_tax_owed)
-        print("capital tax owed", self.player.tax.capital_gains_tax_owed)
-        print("taxes owed", self.player.tax.taxes_owed)
+    def level_up(self):
+        if self.level == "Earth":
+            self.level = "Moon"
+        if self.level == "Moon":
+            self.level = "Venus"
+        if self.level == "Venus":
+            self.level = "Mars"
+        if self.level == "Mars":
+            self.level = "Mercury"
+        if self.level == "Mercury":
+            self.level = "Jupiter"
+        if self.level == "Jupiter":
+            self.level = "Saturn"
+        if self.level == "Saturn":
+            self.level = "Uranus"
+        if self.level == "Uranus":
+            self.level = "Neptune"
+        if self.level == "Neptune":
+            self.level = "END"
