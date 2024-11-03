@@ -24,11 +24,7 @@ class Game:
             if (asset.asset_type == AssetType.PROPERTY):
                 self.player.tax.calculate_property_tax(asset)
 
-        print('-'*20)
-        print(self.player.liabilities)
         for liability in self.player.liabilities:
-            print(liability)
-            print(type(liability))
             monthly_payment = liability.monthly_payment
             self.player.pay_loan(min(monthly_payment, self.player.cash), liability)
             if liability.months_left == 0 and liability.debt_amount > 0:

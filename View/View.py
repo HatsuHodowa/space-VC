@@ -534,7 +534,7 @@ class View:
         buy = tk.Button(data_frame, text="Pay", bg=PRIM_COLOR, font=self.small_font)
         data_frame.grid(column=0, row=0, **self.padding_10, sticky="NESW")
 
-        tax_amount_str = View.format_number(self.control.player.calculate_all_taxes())
+        tax_amount_str = View.format_number(self.control.player.tax.taxes_owed)
         liability.config(text="Liability: $" + tax_amount_str)
         buy.config(command=lambda : self.control.pay_all_taxes())
 

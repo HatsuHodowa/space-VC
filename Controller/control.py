@@ -149,9 +149,13 @@ class SpaceVC:
         self.update_ui()
 
     def monthly_update(self):
+
+        # taxes every april
         if self.game.months % 12 == 3:
-            print('taxes due') # TODO
-            #return "Taxes due " + str(self.player.calculate_all_taxes())
+            self.player.calculate_all_taxes()
+            # TODO popup
+
+        # monthly update and UI update
         self.game.monthly_update()
         self.update_ui()
 
