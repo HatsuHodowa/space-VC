@@ -57,7 +57,7 @@ class View:
 
         # configuring window
         self.window = window
-        self.window.title("Space Finance Simulator")
+        self.window.title("Astro Finance")
         self.window.geometry(str(WINDOW_SIZE[0]) + "x" + str(WINDOW_SIZE[1]))
 
         # properties
