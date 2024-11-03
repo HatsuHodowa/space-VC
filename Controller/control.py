@@ -165,8 +165,21 @@ class SpaceVC:
         self.update_ui()
 
     def pay_all_taxes(self):
-        self.player.pay_all_taxes()
-        self.update_ui()
+
+        # locking and paying taxes
+        self.game.tax_lock = True
+        status = self.player.pay_all_taxes()
+
+        # checking status code
+        if status == 2:
+            print("game over not implemented")
+            #TODO game over
+        elif status == 1:
+            self.view.popup_display("You don't have enough money to pay taxes! Sell some assets and pay your taxes before you can move on.")
+            
+        else:
+            self.game.tax_lock = False
+            self.update_ui()
 
 if __name__ == "__main__":
     SpaceVC()

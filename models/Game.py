@@ -6,6 +6,7 @@ class Game:
         self.player = Player()
         self.months = 0
         self.level = "Earth"
+        self.tax_lock = False
 
     def monthly_update(self):
         self.months += 1

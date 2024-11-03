@@ -121,10 +121,20 @@ class Player:
         self.tax.calculate_income_business_tax()
         return self.tax.taxes_owed
     
-    def pay_all_taxes(self):
-        if self.cash < self.tax.taxes_owed:
-            print("Insufficient Funds")
-            #TODO display of insufficient funds
+    def pay_all_taxes(self) -> int:
+        """
+        Function for paying all taxes
+        
+        Return states:
+        0 - Taxes paid successfully
+        1 - Need to sell to pay
+        2 - Taxes greater than net worth, trigger game over
+        """
+
+        if self.balance < self.tax.taxes_owed:
+            return 2
+        elif self.cash < self.tax.taxes_owed:
+            return 1
         else:
             self.cash -= self.tax.taxes_owed
 
@@ -135,3 +145,5 @@ class Player:
             self.tax.capital_gains_tax_owed = 0
             self.tax.property_tax_owed = 0
             self.tax.business_tax_owed = 0
+
+            return 0

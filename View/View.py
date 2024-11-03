@@ -353,7 +353,8 @@ class View:
             self.set_menu("in_game", new_tab)
 
         def on_next_button():
-            self.control.monthly_update()
+            if self.control.game.tax_lock == False:
+                self.control.monthly_update()
 
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
@@ -493,6 +494,9 @@ class View:
         # configuring listbox
         def listbox_select(event: tk.Event):
             selected = event.widget.curselection()
+            if len(selected) < 1:
+                return
+            
             liability_name = listbox.get(selected[0])
             liability = None
 
