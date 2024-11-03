@@ -366,7 +366,7 @@ class View:
 
         # adding assets
         for liability in liabilities:
-            listbox.insert(tk.END, liability.name)
+            listbox.insert(tk.END, liability["name"])
 
         # configuring listbox
         def listbox_select(event: tk.Event):
@@ -375,14 +375,14 @@ class View:
             liability = None
 
             for other_liability in liabilities:
-                if other_liability.name == liability_name:
+                if other_liability["name"] == liability_name:
                     liability = other_liability
                     break
 
             # updating information
-            balance.config(text="Balance: $" + str(View.format_number(liability.debt_amount)))
-            interest_rate.config(text="Interest Rate: " + str(liability.interest_rate * 100) + "%")
-            months_to_pay.config(text="Months to Pay: " + str(liability.months_left))
+            balance.config(text="Balance: $" + str(View.format_number(liability["debt_amount"])))
+            interest_rate.config(text="Interest Rate: " + str(liability["interest_rate"] * 100) + "%")
+            months_to_pay.config(text="Months to Pay: " + str(liability["months_left"]))
 
             # adding items
             balance.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -455,8 +455,6 @@ class View:
             if asset.liability != None:
                 liability.config(text="Liability: " + asset.liability["name"])
 
-            
-
             buy.config(command=lambda :self.control.buy_asset(asset_name))
 
             value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -465,9 +463,6 @@ class View:
             std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
             buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
-
-            # hiding sell button
-            
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
         

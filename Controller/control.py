@@ -76,7 +76,7 @@ class SpaceVC:
             "balance": self.player.cash,
             "net_worth": self.player.balance,
             "assets": sum([asset.value for asset in self.player.assets]),
-            "liabilities": sum([asset.debt_amount for asset in self.player.liabilities]),
+            "liabilities": sum([asset["debt_amount"] for asset in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months
@@ -86,9 +86,10 @@ class SpaceVC:
     def buy_asset(self, asset_name):
         for a in self.data[self.level][0]:
             if a.name == asset_name:
-                self.player.buy_asset(a)
+                response = self.player.buy_asset(a)
                 break
         self.update_ui()
+        self.view.popup_display(response)
     def sell_asset(self, asset_name):
         for a in self.player.assets:
             if a.name == asset_name:
