@@ -39,5 +39,5 @@ class Game:
         print("income tax owed", self.player.tax.income_tax_owed)
         print("business tax owed", self.player.tax.business_tax_owed)
         print("property tax owed", self.player.tax.property_tax_owed)
-        print("capital tax owed", self.player.tax.capitals_gains_tax_owed)
+        print("capital tax owed", self.player.tax.capital_gains_tax_owed)
         print("taxes owed", self.player.tax.taxes_owed)

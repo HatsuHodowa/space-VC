@@ -4,10 +4,12 @@ class Taxes:
         self.taxable_income = 0
         self.profits = 0
         self.business_tax = 0
+
         self.income_tax_owed = 0
-        self.capitals_gains_tax_owed = 0
+        self.capital_gains_tax_owed = 0
         self.property_tax_owed = 0
         self.business_tax_owed = 0
+
         self.brackets = {
             10**3: 0.1,
             10**5: 0.12,
@@ -58,7 +60,7 @@ class Taxes:
         self.business_tax_owed += business_tax
             
     def calculate_capital_gains_tax(self):
-        self.capitals_gains_tax_owed += 0.15 * self.profits
+        self.capital_gains_tax_owed += 0.15 * self.profits
 
     def calculate_property_tax(self, property: Asset):
         rate = 0.05
@@ -66,4 +68,4 @@ class Taxes:
     
     @property
     def taxes_owed(self):
-        return self.capitals_gains_tax_owed + self.business_tax_owed + self.income_tax_owed + self.property_tax_owed
+        return self.capital_gains_tax_owed + self.business_tax_owed + self.income_tax_owed + self.property_tax_owed

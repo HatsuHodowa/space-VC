@@ -130,19 +130,19 @@ class View:
         # close button
         confirm.config(command=on_confirm)
     
-    def popup_display(self, message: str, destroy_callback=None):
+    def popup_display(self, message: str, destroy_callback=None, button_text="OK"):
         """
         Creates a popup display and returns a function that removes that popup display upon calling.
         """
 
-        self.current_popup = lambda :self.popup_display(message)
+        self.current_popup = lambda :self.popup_display(message, destroy_callback, button_text)
 
         # creating popup frame
         frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
         frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
 
         label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
-        ok_button = tk.Button(frame, bg=GREEN, text="OK", width=10, font=self.small_font)
+        ok_button = tk.Button(frame, bg=GREEN, text=button_text, width=10, font=self.small_font)
 
         label.grid(column=0, row=0, **self.padding_10)
         ok_button.grid(column=0, row=1, **self.padding_10)
@@ -163,6 +163,57 @@ class View:
         ok_button.config(command=remove)
 
         return remove
+    
+    def tax_popup(self, destroy_callback=None):
+        """
+        Creates a popup display for paying taxes with various information.
+        """
+
+        self.current_popup = lambda :self.tax_popup(destroy_callback)
+
+        # getting tax strings
+        player = self.control.player
+
+        income_tax = View.format_number(player.tax.income_tax_owed)
+        capital_tax = View.format_number(player.tax.capital_gains_tax_owed)
+        property_tax = View.format_number(player.tax.property_tax_owed)
+        business_tax = View.format_number(player.tax.business_tax_owed)
+        total_tax = View.format_number(player.tax.taxes_owed)
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        label = tk.Label(frame, bg=PRIM_COLOR, font=self.medium_font, wraplength=POPUP_SIZE[0], text="Your taxes are due!")
+        income = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Income Tax: $" + income_tax)
+        capital = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Capital Gains Tax: $" + capital_tax)
+        property = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Property Tax: $" + property_tax)
+        business = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Business Tax: $" + business_tax)
+        total = tk.Label(frame, bg=PRIM_COLOR, font=self.small_font, wraplength=POPUP_SIZE[0], text="Total: $" + total_tax)
+        ok_button = tk.Button(frame, bg=GREEN, text="Pay", width=10, font=self.small_font)
+
+        label.grid(column=0, row=0, **self.padding_10)
+        income.grid(column=0, row=1, **self.padding_5)
+        capital.grid(column=0, row=2, **self.padding_5)
+        property.grid(column=0, row=3, **self.padding_5)
+        business.grid(column=0, row=4, **self.padding_5)
+        total.grid(column=0, row=5, **self.padding_5)
+        ok_button.grid(column=0, row=6, **self.padding_10)
+
+        # return function
+        def remove():
+
+            # destroying popup
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+
+            # destroy callback
+            if destroy_callback != None:
+                destroy_callback()
+        
+        # close button
+        ok_button.config(command=remove)
 
     def update_stats(self, stats_dict: dict):
         print("Updating stats: ", stats_dict)
@@ -404,6 +455,8 @@ class View:
             std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
             sell.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
+            if asset.liability == None:
+                liability.grid_forget()
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
 
@@ -523,11 +576,9 @@ class View:
             buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
-        
-
-        
 
     def taxes_tab(self, bottom_frame: tk.Frame):
+
         # taxes tab
         data_frame = tk.Frame(bottom_frame, **self.frame_styling)
         liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)

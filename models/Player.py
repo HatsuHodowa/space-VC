@@ -125,6 +125,7 @@ class Player:
     def pay_all_taxes(self):
         if self.cash < self.tax.taxes_owed:
             print("Insufficient Funds")
+            #TODO display of insufficient funds
         else:
             self.cash -= self.tax.taxes_owed
 
@@ -132,6 +133,6 @@ class Player:
             self.tax.profits = 0
             self.tax.business_tax = 0
             self.tax.income_tax_owed = 0
-            self.tax.capitals_gains_tax_owed = 0
+            self.tax.capital_gains_tax_owed = 0
             self.tax.property_tax_owed = 0
             self.tax.business_tax_owed = 0
