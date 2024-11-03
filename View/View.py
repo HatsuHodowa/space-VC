@@ -290,20 +290,6 @@ class View:
             liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
-        
-        # list all current assets
-        # buying assets
-        # selling assets
-
-        """
-        for each asset
-            value: number
-            income: number
-            average return rate: number
-            STD return rate: number
-            liability: str
-        """
-        pass
 
     def liabilities_tab(self, bottom_frame: tk.Frame):
 
