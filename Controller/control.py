@@ -6,7 +6,6 @@ import sys
 
 
 
-
 sys.path.append("..")
 sys.path.append("View")
 sys.path.append("..")
@@ -57,6 +56,8 @@ class SpaceVC:
         #convert json data to python data structure
 
         self.data = convert_to_list(self.data)
+        self.levels = list(self.data.keys())
+        print(self.levels)
 
         # testing
         self.player.cash += 500000
@@ -134,6 +135,8 @@ class SpaceVC:
         self.update_ui()
 
     def monthly_update(self):
+        if self.game.months % 12 == 3 and self.player.calculated_taxes() >0:
+            return "Taxes due " + str(self.player.calculated_taxes())
         self.game.monthly_update()
         self.update_ui()
 

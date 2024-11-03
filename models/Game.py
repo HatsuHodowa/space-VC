@@ -1,4 +1,6 @@
 from models.Player import Player
+from models.Asset import AssetType
+
 class Game:
     def __init__(self) -> None:
         self.player = Player()
@@ -8,18 +10,34 @@ class Game:
     def monthly_update(self):
         self.months += 1
 
+        #process salary
+        if self.player.job:
+            self.player.cash += self.player.job.income
+            self.player.tax.taxable_income += self.player.job.income
+
         #appreciate assets
         for asset in self.player.assets:
             asset.appreciate()
+            self.player.cash += asset.income
+            if (asset.asset_type == AssetType.BUSINESS):
+                self.player.tax.business_tax += asset.income
+            if (asset.asset_type == AssetType.PROPERTY):
+                self.player.tax.calculate_property_tax(asset)
+
         for liability in self.player.liabilities:
-            if liability.months_left == 0:
+            monthly_payment = liability.month_payment
+            self.player.pay_loan(min(monthly_payment, self.player.cash), liability)
+            if liability.months_left == 0 and liability.debt_amount > 0:
                 self.player.collections_remove_liability(liability)
-            #calculate interest and decrement months left for payment
             liability.calculate_interest()
             liability.months_left -= 1
-        #implement tax updates here
 
     
     def game_status(self):
         print("months ", self.months)
         print("balance ", self.player.balance)
+        print("income tax owed", self.player.tax.income_tax_owed)
+        print("business tax owed", self.player.tax.business_tax_owed)
+        print("property tax owed", self.player.tax.property_tax_owed)
+        print("capital tax owed", self.player.tax.capitals_gains_tax_owed)
+        print("taxes owed", self.player.tax.taxes_owed)

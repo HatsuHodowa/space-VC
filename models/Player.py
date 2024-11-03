@@ -1,6 +1,7 @@
 from models.Asset import Asset
 from models.Liability import Liability
 from models.Job import Job
+from models.Taxes import Taxes
 
 class Player:
     def __init__(self, assets=[], liabilites=[], credit_score=750, cash=0, job: Job=None) -> None:
@@ -9,6 +10,7 @@ class Player:
         self.credit_score = credit_score
         self.cash = cash
         self.job = job
+        self.tax = Taxes()
 
     def buy_asset(self, sample_asset: Asset):
 
@@ -37,6 +39,7 @@ class Player:
             self.cash += (asset.value - asset.liability["debt_amount"])
         else:
             self.cash += asset.value
+        self.tax.profits += (asset.value - asset.purchase_price)
 
     def sell_liability(self, liability):
         self.liabilities.remove(liability)
@@ -90,5 +93,24 @@ class Player:
             risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
             total += weight * risk
         return total
-        
-        
+    
+
+    def calculate_all_taxes(self):
+        self.tax.calculate_capital_gains_tax()
+        self.tax.calculate_income_tax()
+        self.tax.calculate_income_business_tax()
+        return self.tax.taxes_owed
+    
+    def pay_all_taxes(self):
+        if self.cash < self.tax.taxes_owed:
+            print("Insufficient Funds")
+        else:
+            self.cash -= self.tax.taxes_owed
+
+            self.tax.taxable_income = 0
+            self.tax.profits = 0
+            self.tax.business_tax = 0
+            self.tax.income_tax_owed = 0
+            self.tax.capitals_gains_tax_owed = 0
+            self.tax.property_tax_owed = 0
+            self.tax.business_tax_owed = 0
