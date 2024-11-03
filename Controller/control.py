@@ -143,6 +143,10 @@ class SpaceVC:
         self.game.monthly_update()
         self.update_ui()
 
+    def pay_all_taxes(self):
+        self.player.pay_all_taxes()
+        self.update_ui()
+
     def update_model(self):
         # TODO: Update player model based on user actions
         pass 

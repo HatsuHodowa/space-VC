@@ -525,4 +525,16 @@ class View:
         pass
 
     def taxes_tab(self, bottom_frame: tk.Frame):
-        pass
+        # taxes tab
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+        liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        buy = tk.Button(data_frame, text="Pay", bg=PRIM_COLOR, font=self.small_font)
+        data_frame.grid(column=0, row=0, **self.padding_10, sticky="NESW")
+
+        liability.config(text="Liability: " + str(self.control.player.calculate_all_taxes()))
+        buy.config(command=lambda : self.control.pay_all_taxes())
+
+        liability.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+        buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
+
+    
