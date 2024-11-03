@@ -20,7 +20,7 @@ class Liability:
         return self.debt_amount
     
     def calculate_interest(self):
-        self.debt_amount += self.debt_amount * self.interest_rate
+        self.debt_amount += self.debt_amount * self.interest_rate / 12
         return self.debt_amount
             
     @property

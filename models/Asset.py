@@ -36,7 +36,9 @@ class Asset:
 
     def appreciate(self):
         #first calculate appreciation
-        apr = random.normal(self.apr_mean, self.apr_std)
-        self.value += self.value * (1 + apr)
+        apr = random.normal(self.apr_mean, self.apr_std) / 12
+        print(apr)
+        self.value += self.value * apr
+        print(self.value)
         return (self.value, apr)
     

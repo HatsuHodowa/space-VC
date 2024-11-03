@@ -104,10 +104,11 @@ class Player:
             weight = asset.value / sum_of_values
             if asset.apr_mean < 0.03:
                 weight = 0
-            if asset.apr_std == 0: #edge case, make it really small
+            if int(asset.apr_std) == 0: #edge case, make it really small
                 total += weight * 2 / (0.00001 ** 2) * (asset.apr_mean - 0.03)
-            risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
-            total += weight * risk
+            else:
+                risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
+                total += weight * risk
         return total
     
 
