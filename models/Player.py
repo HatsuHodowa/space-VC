@@ -17,6 +17,7 @@ class Player:
     def buy_asset(self, sample_asset: Asset):
 
         # buying asset
+        new_liability = None
         if sample_asset.liability:
             if self.credit_score < 500:
                 return None, "Not enough credit! Need 500."
@@ -31,7 +32,8 @@ class Player:
         # purchasing asset
         sample_asset.purchase_price = sample_asset.value
         asset = copy.deepcopy(sample_asset)
-        asset.liability = new_liability
+        if new_liability != None:
+            asset.liability = new_liability
         self.assets.append(asset)
 
         # returning

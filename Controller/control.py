@@ -98,7 +98,7 @@ class SpaceVC:
                     if name == "":
                         return
                     
-                    bought_asset.name = "House: " + name
+                    bought_asset.name = bought_asset.name + ": " + name
 
                     if bought_asset.liability != None:
                         bought_asset.liability["name"] += ": " + name
