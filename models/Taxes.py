@@ -34,18 +34,17 @@ class Taxes:
         self.business_tax += business.value
 
     def calculate_income_tax(self):
-        self.income_tax_owed = 1241253252523
-        # income_tax = 0
-        # prev = 0
-        # for bracket, rate in self.brackets.items():
-        #     if self.taxable_income > bracket:
-        #         income_tax += (bracket - prev) * rate
-        #         self.taxable_income -= (bracket - prev)
-        #     else:
-        #         income_tax += (self.taxable_income - prev) * rate
-        #         break
-        #     prev = bracket
-        # self.income_tax_owed += income_tax
+        income_tax = 0
+        prev = 0
+        for bracket, rate in self.brackets.items():
+            if self.taxable_income > bracket:
+                income_tax += (bracket - prev) * rate
+                self.taxable_income -= (bracket - prev)
+            else:
+                income_tax += (self.taxable_income - prev) * rate
+                break
+            prev = bracket
+        self.income_tax_owed += income_tax
 
     def calculate_income_business_tax(self):
         business_tax = 0
