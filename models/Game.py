@@ -12,10 +12,13 @@ class Game:
         for asset in self.player.assets:
             asset.appreciate()
         for liability in self.player.liabilities:
+            if liability.months_left == 0:
+                self.player.collections_remove_liability(liability)
             #calculate interest and decrement months left for payment
             liability.calculate_interest()
             liability.months_left -= 1
         #implement tax updates here
+
     
     def game_status(self):
         print("months ", self.months)
