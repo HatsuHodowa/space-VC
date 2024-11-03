@@ -100,6 +100,8 @@ class Player:
         sum_of_values = sum([asset.value for asset in self.assets])
         for asset in self.assets:
             weight = asset.value / sum_of_values
+            if asset.apr_mean < 0.03:
+                weight = 0
             if asset.apr_std == 0: #edge case, make it really small
                 total += weight * 2 / (0.00001 ** 2) * (asset.apr_mean - 0.03)
             risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)

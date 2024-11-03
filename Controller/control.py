@@ -77,7 +77,8 @@ class SpaceVC:
             "liabilities": sum([asset["debt_amount"] for asset in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
-            "month": self.game.months
+            "month": self.game.months,
+            "ra": self.player.risk_aversion
         }
         self.view.update_stats(stats_dict)
 
