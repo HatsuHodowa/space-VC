@@ -46,7 +46,7 @@ TAB_BACKGROUNDS = {
     "assets_tab" : "../View/backgrounds/assets.jpg",
     "liabilities_tab" : "../View/backgrounds/Liabilities.jpg",
     "asset_market_tab" : "../View/backgrounds/markets.jpg",
-    "taxes_tab" : "../View/backgrounds/tax.jpg",
+    #"taxes_tab" : "../View/backgrounds/tax.jpg",
     "career_tab" : "../View/backgrounds/careers.jpg",
 }
 
@@ -326,14 +326,14 @@ class View:
         assets_tab = tk.Button(tabs_frame, text="Assets", bg=PRIM_COLOR, font=self.small_font)
         liabilities_tab = tk.Button(tabs_frame, text="Liabilities", bg=PRIM_COLOR, font=self.small_font)
         asset_market_tab = tk.Button(tabs_frame, text="Asset markets", bg=PRIM_COLOR, font=self.small_font)
-        taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
+        #taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
         career_tab = tk.Button(tabs_frame, text="Career", bg=PRIM_COLOR, font=self.small_font)
 
         stats_tab.grid(column=0, row=0)
         assets_tab.grid(column=1, row=0)
         liabilities_tab.grid(column=2, row=0)
         asset_market_tab.grid(column=3, row=0)
-        taxes_tab.grid(column=4, row=0)
+        #taxes_tab.grid(column=4, row=0)
         career_tab.grid(column=5, row=0)
 
         # coloring selected tab
@@ -347,8 +347,8 @@ class View:
             liabilities_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "asset_market_tab":
             asset_market_tab.config(bg=SELECTED_COLOR)
-        elif current_tab == "taxes_tab":
-            taxes_tab.config(bg=SELECTED_COLOR)
+        #elif current_tab == "taxes_tab":
+        #    taxes_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "career_tab":
             career_tab.config(bg=SELECTED_COLOR)
 
@@ -364,7 +364,7 @@ class View:
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
         asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
-        taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
+        #taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
         career_tab.config(command=lambda :switch_tab("career_tab"))
 
         next_button.config(command=on_next_button)
