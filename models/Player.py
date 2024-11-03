@@ -54,7 +54,8 @@ class Player:
         self.tax.profits += (asset.value - asset.purchase_price)
 
     def sell_liability(self, liability):
-        self.liabilities.remove(liability)
+        if liability in self.liabilities:
+            self.liabilities.remove(liability)
 
     def get_job(self, job: Job):
         self.job = job
