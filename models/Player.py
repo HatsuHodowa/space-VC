@@ -3,6 +3,8 @@ from models.Liability import Liability
 from models.Job import Job
 from models.Taxes import Taxes
 
+import copy
+
 class Player:
     def __init__(self, assets=[], liabilites=[], credit_score=750, cash=0, job: Job=None) -> None:
         self.assets = assets
@@ -15,22 +17,30 @@ class Player:
     def buy_asset(self, sample_asset: Asset):
 
         # buying asset
-        if asset.liability:
+        if sample_asset.liability:
             if self.credit_score < 500:
-                return "Not enough credit! Need 500.", False
-            down_payment = asset.value - asset.liability["debt_amount"]
+                return None, "Not enough credit! Need 500."
+            down_payment = sample_asset.value - sample_asset.liability["debt_amount"]
             self.cash -= down_payment
-            self.buy_liability(asset.liability)
+            new_liability = self.buy_liability(sample_asset.liability)
         else:
-            if self.cash < asset.value:
-                return "Insufficient funds!", False
-            self.cash -= asset.value
-        asset.purchase_price = asset.value
-        self.assets.append(asset)
-        return "Successful purchase!", True
+            if self.cash < sample_asset.value:
+                return None, "Insufficient funds!"
+            self.cash -= sample_asset.value
 
-    def buy_liability(self, liability: Liability):
+        # purchasing asset
+        sample_asset.purchase_price = sample_asset.value
+        asset = copy.deepcopy(sample_asset)
+        asset.liability = new_liability
+        self.assets.append(asset)
+
+        # returning
+        return asset, "Successful purchase!"
+
+    def buy_liability(self, sample_liability: Liability) -> Liability:
+        liability = copy.deepcopy(sample_liability)
         self.liabilities.append(liability)
+        return liability
 
     def sell_asset(self, asset: Asset):
         self.assets.remove(asset)

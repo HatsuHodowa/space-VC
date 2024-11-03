@@ -57,7 +57,6 @@ class SpaceVC:
 
         self.data = convert_to_list(self.data)
         self.levels = list(self.data.keys())
-        print(self.levels)
 
         # testing
         self.player.cash += 500000
@@ -85,8 +84,12 @@ class SpaceVC:
     def buy_asset(self, asset_name):
 
         # finding asset
-        for asset in self.data[self.levels[]]
-        bought_asset, response = self.player.buy_asset(asset_name)
+        for asset in self.data[self.game.level][0]:
+            if asset.name == asset_name:
+                sample_asset = asset
+                break
+
+        bought_asset, response = self.player.buy_asset(sample_asset)
 
         # renaming assets
         def rename_asset():

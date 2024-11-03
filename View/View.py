@@ -485,7 +485,7 @@ class View:
         data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
 
         # getting data
-        assets: list = self.control.data[self.control.level][0]
+        assets: list = self.control.data[self.control.game.level][0]
 
         # adding assets
         for asset in assets:
