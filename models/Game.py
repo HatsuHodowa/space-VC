@@ -37,19 +37,19 @@ class Game:
     def level_up(self):
         if self.level == "Earth":
             self.level = "Moon"
-        if self.level == "Moon":
+        elif self.level == "Moon":
             self.level = "Venus"
-        if self.level == "Venus":
+        elif self.level == "Venus":
             self.level = "Mars"
-        if self.level == "Mars":
+        elif self.level == "Mars":
             self.level = "Mercury"
-        if self.level == "Mercury":
+        elif self.level == "Mercury":
             self.level = "Jupiter"
-        if self.level == "Jupiter":
+        elif self.level == "Jupiter":
             self.level = "Saturn"
-        if self.level == "Saturn":
+        elif self.level == "Saturn":
             self.level = "Uranus"
-        if self.level == "Uranus":
+        elif self.level == "Uranus":
             self.level = "Neptune"
-        if self.level == "Neptune":
+        elif self.level == "Neptune":
             self.level = "END"
