@@ -294,11 +294,16 @@ class View:
         def switch_tab(new_tab: str):
             self.set_menu("in_game", new_tab)
 
+        def on_next_button():
+            self.control.monthly_update()
+
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
         asset_market_tab.config(command=lambda :switch_tab("asset_market_tab"))
         taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
+
+        next_button.config(command=on_next_button)
 
         # adding tab content for current tab
         if current_tab != None:
@@ -378,7 +383,7 @@ class View:
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
             if asset.liability != None:
-                liability.config(text="Liability: " + asset.liability["name"])
+                liability.config(text="Liability: " + asset.liability.name)
 
             # configuring sell button
             sell.config(command=lambda : self.control.sell_asset(asset_name))
@@ -421,7 +426,7 @@ class View:
 
         # adding assets
         for liability in liabilities:
-            listbox.insert(tk.END, liability["name"])
+            listbox.insert(tk.END, liability.name)
 
         # configuring listbox
         def listbox_select(event: tk.Event):
@@ -430,14 +435,14 @@ class View:
             liability = None
 
             for other_liability in liabilities:
-                if other_liability["name"] == liability_name:
+                if other_liability.name == liability_name:
                     liability = other_liability
                     break
 
             # updating information
-            balance.config(text="Balance: $" + str(View.format_number(liability["debt_amount"])))
-            interest_rate.config(text="Interest Rate: " + str(liability["interest_rate"] * 100) + "%")
-            months_to_pay.config(text="Months to Pay: " + str(liability["months_left"]))
+            balance.config(text="Balance: $" + str(View.format_number(liability.debt_amount)))
+            interest_rate.config(text="Interest Rate: " + str(liability.interest_rate * 100) + "%")
+            months_to_pay.config(text="Months to Pay: " + str(liability.months_left))
 
             # adding items
             balance.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
@@ -445,18 +450,6 @@ class View:
             months_to_pay.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
-
-        # list all current liabilities
-        # getting loans
-        # paying off loans
-
-        """
-        for each liability
-            balance: number
-            interest_rate: number
-            months_to_pay: number
-        """
-        
 
     def asset_market_tab(self, bottom_frame: tk.Frame):
 
@@ -508,7 +501,7 @@ class View:
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
             if asset.liability != None:
-                liability.config(text="Liability: " + asset.liability["name"])
+                liability.config(text="Liability: " + asset.liability.name)
 
             buy.config(command=lambda :self.control.buy_asset(asset_name))
 

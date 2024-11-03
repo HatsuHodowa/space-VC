@@ -1,4 +1,3 @@
-from models.Asset import Asset
 
 class Liability:
 

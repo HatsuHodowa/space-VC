@@ -107,20 +107,6 @@
                 "title": "Stock Trader",
                 "income": 52154
             }
-        ],
-        "liabilities": [
-            {
-                "name": "Mortgage",
-                "debt_amount": 249253,
-                "interest_rate": 0.04,
-                "months_left": 18
-            },
-            {
-                "name": "Car Loan",
-                "debt_amount": 13083,
-                "interest_rate": 0.05,
-                "months_left": 6
-            }
         ]
     },
     "Moon": {
