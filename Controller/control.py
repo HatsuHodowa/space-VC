@@ -64,6 +64,7 @@ class SpaceVC:
         self.player.cash += 1001023052035
         self.buy_asset("House")
         self.buy_asset("Car")
+        self.buy_liability("Mortgage")
 
         root = tk.Tk()
         self.view = View.View(root, self)
@@ -87,7 +88,6 @@ class SpaceVC:
 
     def buy_asset(self, asset_name):
         for a in self.data[self.level][0]:
-            print(a.name)
             if a.name == asset_name:
                 self.player.buy_asset(a)
                 break
