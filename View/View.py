@@ -81,6 +81,7 @@ class View:
         return formatted
 
     def update_stats(self, stats_dict: dict):
+        print("Updating stats: ", stats_dict)
         """
         stats_dict keys:
             balance: number
