@@ -10,12 +10,7 @@ class Player:
         self.cash = cash
         self.job = job
 
-    def buy_asset(self, asset: Asset):
-
-        # checking if already owned
-        for other_asset in self.assets:
-            if asset == other_asset:
-                return "You already own this!", False
+    def buy_asset(self, sample_asset: Asset):
 
         # buying asset
         if asset.liability:

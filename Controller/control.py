@@ -24,8 +24,6 @@ class SpaceVC:
     def __init__(self) -> None:
         self.game = Game.Game()
         self.player = self.game.player
-        
-        self.level= "Earth"
         #create data
 
         # load data
@@ -86,16 +84,12 @@ class SpaceVC:
     def buy_asset(self, asset_name):
 
         # finding asset
-        bought_asset = None
-        for a in self.data[self.level][0]:
-            if a.name == asset_name:
-                response, success = self.player.buy_asset(a)
-                bought_asset = a
-                break
+        for asset in self.data[self.levels[]]
+        bought_asset, response = self.player.buy_asset(asset_name)
 
         # renaming assets
         def rename_asset():
-            if bought_asset != None and success:
+            if bought_asset != None:
                 def change_name(name: str):
                     if name == "":
                         return
@@ -119,21 +113,21 @@ class SpaceVC:
         self.update_ui()
 
     def buy_liability(self, liability_name):
-        for l in self.data[self.level][2]:
+        for l in self.data[self.game.level][2]:
             if l.name == liability_name:
                 self.player.buy_liability(l)
                 break
         self.update_ui()
 
     def sell_liability(self, liability_name):
-        for l in self.data[self.level][2]:
+        for l in self.data[self.game.level][2]:
             if l.name == liability_name:
                 self.player.sell_liability(l)
                 break
         self.update_ui()
 
     def get_job(self, job_name):
-        for j in self.data[self.level][1]:
+        for j in self.data[self.game.level][1]:
             if j.title == job_name:
                 self.player.get_job(j)
                 break
