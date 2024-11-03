@@ -3,6 +3,7 @@ class Game:
     def __init__(self) -> None:
         self.player = Player()
         self.months = 0
+        self.level = "Earth"
 
     def monthly_update(self):
         self.months += 1
