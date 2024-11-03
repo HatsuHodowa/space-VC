@@ -12,7 +12,6 @@ sys.path.append("View")
 sys.path.append("..")
 sys.path.append("models")
 from models import Asset
-from models import Asset
 from View import View
 from models import Player
 from models import Liability
@@ -60,11 +59,14 @@ class SpaceVC:
         #convert json data to python data structure
 
         self.data = convert_to_list(self.data)
-        print(self.data)
+
+        # testing
+        self.player.cash += 1001023052035
+        self.buy_asset("House")
+        self.buy_asset("Car")
 
         root = tk.Tk()
         self.view = View.View(root, self)
-        self.update_ui()
         self.update_ui()
         root.mainloop()
         
@@ -85,6 +87,7 @@ class SpaceVC:
 
     def buy_asset(self, asset_name):
         for a in self.data[self.level][0]:
+            print(a.name)
             if a.name == asset_name:
                 self.player.buy_asset(a)
                 break
