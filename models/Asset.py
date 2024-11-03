@@ -18,15 +18,16 @@ class Asset:
         self.liability = liability
 
     def to_dict(self):
-            return {
-                "name": self.name,
-                "value": self.value,
-                "purchase_price": self.purchase_price,
-                "income": self.income,
-                "apr_mean": self.apr_mean,
-                "apr_std": self.apr_std,
-                "liability": self.liability.to_dict() if self.liability else None
-            }
+        return {
+            "name": self.name,
+            "value": self.value,
+            "purchase_price": self.purchase_price,
+            "income": self.income,
+            "apr_mean": self.apr_mean,
+            "apr_std": self.apr_std,
+            "asset_type": self.asset_type.name,  # Convert enum to string
+            "liability": self.liability.to_dict() if self.liability else None
+        }
 
     def appreciate(self):
         #first calculate appreciation
