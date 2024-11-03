@@ -227,8 +227,11 @@ class View:
 
         scrollbar.config(command=listbox.yview)
 
-        value = tk.Label(data_frame, font=self.small_font, text="Value: $0")
-        cash_flow = tk.Label(data_frame, font=self.small_font, text="Cash Flow: $0/month")
+        value = tk.Label(data_frame, font=self.small_font, text="Value: $0", bg=PRIM_COLOR)
+        cash_flow = tk.Label(data_frame, font=self.small_font, text="Cash Flow: $0/month", bg=PRIM_COLOR)
+        mean_apr = tk.Label(data_frame, font=self.small_font, text="Mean Return Rate: $0", bg=PRIM_COLOR)
+        std_apr = tk.Label(data_frame, font=self.small_font, text="Std Return Rate: $0", bg=PRIM_COLOR)
+        liability = tk.Label(data_frame, font=self.small_font, text="Liability: None", bg=PRIM_COLOR)
 
         # adding to display
         bottom_frame.columnconfigure(0, weight=1)
@@ -247,9 +250,15 @@ class View:
         # configuring listbox
         def listbox_select(event: tk.Event):
             selected = event.widget.curselection()
-            
-            # updating information
 
+            # updating information
+            
+            # adding items
+            value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
+            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
+            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
         
