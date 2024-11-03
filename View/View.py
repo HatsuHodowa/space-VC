@@ -170,10 +170,14 @@ class View:
         stats_tab = tk.Button(tabs_frame, text="Stats", bg=PRIM_COLOR, font=self.small_font)
         assets_tab = tk.Button(tabs_frame, text="Assets", bg=PRIM_COLOR, font=self.small_font)
         liabilities_tab = tk.Button(tabs_frame, text="Liabilities", bg=PRIM_COLOR, font=self.small_font)
+        stocks_tab = tk.Button(tabs_frame, text="Stocks", bg=PRIM_COLOR, font=self.small_font)
+        taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
 
         stats_tab.grid(column=0, row=0)
         assets_tab.grid(column=1, row=0)
         liabilities_tab.grid(column=2, row=0)
+        stocks_tab.grid(column=3, row=0)
+        taxes_tab.grid(column=4, row=0)
 
         # coloring selected tab
         if current_tab == "stats_tab":
@@ -182,9 +186,10 @@ class View:
             assets_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "liabilities_tab":
             liabilities_tab.config(bg=SELECTED_COLOR)
-
-        # add stocks tab? TODO
-        # add taxes tab? TODO
+        elif current_tab == "stocks_tab":
+            stocks_tab.config(bg=SELECTED_COLOR)
+        elif current_tab == "taxes_tab":
+            taxes_tab.config(bg=SELECTED_COLOR)
 
         # connecting buttons
         def switch_tab(new_tab: str):
@@ -193,6 +198,8 @@ class View:
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
+        stocks_tab.config(command=lambda :switch_tab("stocks_tab"))
+        taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
 
         # adding tab content for current tab
         if current_tab != None:
@@ -287,6 +294,12 @@ class View:
             interest_rate: number
             months_to_pay: number
         """
+        pass
+
+    def stocks_tab(self, bottom_frame: tk.Frame):
+        pass
+
+    def taxes_tab(self, bottom_frame: tk.Frame):
         pass
 
 if __name__ == "__main__":
