@@ -41,8 +41,6 @@ class Player:
     def buy_liability(self, sample_liability: Liability) -> Liability:
         liability = copy.deepcopy(sample_liability)
         self.liabilities.append(liability)
-        print('new liability')
-        print(liability)
         return liability
 
     def sell_asset(self, asset: Asset):
@@ -98,17 +96,23 @@ class Player:
     def risk_aversion(self):
         """Computes Risk aversion. The weight of an asset if the dollar value of a security divided by the total value of the portfolio"""
         total = 0
-        sum_of_values = sum([asset.value for asset in self.assets])
+        tw = 0
+        #sum_of_values = sum([asset.value for asset in self.assets])
         for asset in self.assets:
-            weight = asset.value / sum_of_values
-            if asset.apr_mean < 0.03:
+            print(asset.name, asset.value, asset.apr_mean, asset.apr_std)
+            weight = asset.value 
+            if asset.apr_mean <= 0.03:
                 weight = 0
-            if int(asset.apr_std) == 0: #edge case, make it really small
+            if asset.apr_std < 0.00001 : #edge case, make it really small
                 total += weight * 2 / (0.00001 ** 2) * (asset.apr_mean - 0.03)
             else:
                 risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
                 total += weight * risk
-        return total
+                tw += weight
+        if tw ==0:
+            tw =1
+        print(total/ tw)
+        return total/tw
     
 
     def calculate_all_taxes(self):
@@ -120,6 +124,7 @@ class Player:
     def pay_all_taxes(self):
         if self.cash < self.tax.taxes_owed:
             print("Insufficient Funds")
+            #TODO display of insufficient funds
         else:
             self.cash -= self.tax.taxes_owed
 
@@ -127,6 +132,6 @@ class Player:
             self.tax.profits = 0
             self.tax.business_tax = 0
             self.tax.income_tax_owed = 0
-            self.tax.capitals_gains_tax_owed = 0
+            self.tax.capital_gains_tax_owed = 0
             self.tax.property_tax_owed = 0
             self.tax.business_tax_owed = 0

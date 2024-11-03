@@ -75,7 +75,7 @@ class SpaceVC:
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months,
-            "ra": self.player.risk_aversion
+            "ra": self.player.risk_aversion,
         }
         self.view.update_stats(stats_dict)
 
@@ -152,9 +152,15 @@ class SpaceVC:
         self.update_ui()
 
     def monthly_update(self):
-        if self.game.months % 12 == 3:
-            print('taxes due') # TODO
-            #return "Taxes due " + str(self.player.calculate_all_taxes())
+
+        # taxes every april
+        if self.game.months % 12 == 2:
+            taxes = self.player.calculate_all_taxes()
+
+            # prompting player to pay taxes
+            self.view.tax_popup(self.pay_all_taxes)
+
+        # monthly update and UI update
         self.game.monthly_update()
         self.update_ui()
 
