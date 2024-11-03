@@ -11,6 +11,7 @@ PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
 GREEN = "#00ff00"
+YELLOW = "#ffff00"
 WHITE = "#ffffff"
 BLACK = "#000000"
 
@@ -131,41 +132,6 @@ class View:
         
         # close button
         confirm.config(command=on_confirm)
-
-    def popup_with_title(self, title_msg: str, message: str, destroy_callback=None, button_text="OK"):
-        """
-        Creates a popup display (with a title) and returns a function that removes that popup display upon calling.
-        """
-
-        self.current_popup = lambda :self.popup_with_title(title_msg, message, destroy_callback, button_text)
-
-        # creating popup frame
-        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
-        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
-
-        print(title_msg)
-        title = tk.Label(frame, bg=PRIM_COLOR, text=title_msg, font=self.medium_font, wraplength=POPUP_SIZE[0])
-        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
-        ok_button = tk.Button(frame, bg=GREEN, text=button_text, width=10, font=self.small_font)
-
-        title.grid(column=0, row=0, **self.padding_10)
-        label.grid(column=0, row=1, **self.padding_10)
-        ok_button.grid(column=0, row=2, **self.padding_10)
-
-        # return function
-        def remove():
-
-            # destroying popup
-            label.destroy()
-            frame.destroy()
-            self.current_popup = None
-
-            # destroy callback
-            if destroy_callback != None:
-                destroy_callback()
-        
-        # close button
-        ok_button.config(command=remove)
     
     def popup_display(self, message: str, destroy_callback=None, button_text="OK"):
         """
@@ -684,6 +650,54 @@ class View:
             buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
+        
+    def tutorial_popup(self, title_msg: str, message: str, destroy_callback=None, button_text="OK"):
+        """
+        Creates a popup display (with a title) and returns a function that removes that popup display upon calling.
+        """
+
+        self.current_popup = lambda :self.tutorial_popup(title_msg, message, destroy_callback, button_text)
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        title = tk.Label(frame, bg=PRIM_COLOR, text=title_msg, font=self.medium_font, wraplength=POPUP_SIZE[0])
+        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
+        ok_button = tk.Button(frame, bg=GREEN, text=button_text, width=10, font=self.small_font)
+        skip_button = tk.Button(frame, bg=YELLOW, text="Skip", width=10, font=self.small_font)
+
+        title.grid(column=0, columnspan=2, row=0, **self.padding_10)
+        label.grid(column=0, columnspan=2, row=1, **self.padding_10)
+        skip_button.grid(column=0, row=2, **self.padding_10)
+        ok_button.grid(column=1, row=2, **self.padding_10)
+
+        # buttons
+        def remove():
+
+            # destroying popup
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+
+            # destroy callback
+            if destroy_callback != None:
+                destroy_callback()
+
+        def on_skip_button():
+
+            # destroying popup
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+        
+        # connecting buttons
+        to_close = False
+        ok_button.config(command=remove)
+        skip_button.config(command=on_skip_button)
+
+        # returning
+        return to_close
     
     def tutorial(self):
         with open("../tutorial.json") as file:
@@ -695,8 +709,8 @@ class View:
                 current_item += 1
                 item = items[current_item]
                 if current_item >= len(items) - 1:
-                    self.popup_with_title(item, data[item], None, "Done")
+                    self.tutorial_popup(item, data[item], None, "Done")
                 else:
-                    self.popup_with_title(item, data[item], lambda :next_item(current_item), "Next")
+                    self.tutorial_popup(item, data[item], lambda :next_item(current_item), "Next")
 
             next_item(-1)
