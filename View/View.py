@@ -235,7 +235,7 @@ class View:
 
         # top data
         if "balance" in stats_dict:
-            self.balance.set("Balance: $" + str(View.format_number(stats_dict["balance"])))
+            self.balance.set("Balance: $" + View.format_number(stats_dict["balance"]))
         if "month" in stats_dict:
             month = stats_dict["month"]
             year = month // 12 + STARTING_YEAR
@@ -246,15 +246,15 @@ class View:
         if "credit_score" in stats_dict:
             self.credit_score.set("Credit Score: " + str(stats_dict["credit_score"]))
         if "income" in stats_dict:
-            self.income.set("Income: $" + str(View.format_number(stats_dict["income"])) + "/month")
+            self.income.set("Income: $" + View.format_number(stats_dict["income"]) + "/month")
         if "net_worth" in stats_dict:
-            self.net_worth.set("Net Worth: $" + str(View.format_number(stats_dict["net_worth"])))
+            self.net_worth.set("Net Worth: $" + View.format_number(stats_dict["net_worth"]))
         if "occupation" in stats_dict:
             self.occupation.set("Occupation: " + stats_dict["occupation"])
         if "assets" in stats_dict:
-            self.assets.set("Assets: $" + str(View.format_number(stats_dict["assets"])))
+            self.assets.set("Assets: $" + View.format_number(stats_dict["assets"]))
         if "liabilities" in stats_dict:
-            self.liabilities.set("Liabilities: $" + str(View.format_number(stats_dict["liabilities"])))
+            self.liabilities.set("Liabilities: $" + View.format_number(stats_dict["liabilities"]))
         if "ra" in stats_dict:
             self.ra.set("Risk Adversion: " + str(stats_dict["ra"]))
         # reloading menu
@@ -442,8 +442,8 @@ class View:
                     break
 
             # updating information
-            value.config(text="Value: $" + str(View.format_number(asset.value)))
-            cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
+            value.config(text="Value: $" + View.format_number(asset.value))
+            cash_flow.config(text="Cash Flow: $" + View.format_number(asset.income) + "/month")
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
             if asset.liability != None:
@@ -453,11 +453,11 @@ class View:
             sell.config(command=lambda : self.control.sell_asset(asset_name))
             
             # adding items
-            value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
-            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
-            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
-            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
-            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+            value.grid(column=0, row=0, padx=(5, 15), pady=5, sticky="W")
+            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, sticky="W")
+            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, sticky="W")
+            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="W")
+            liability.grid(column=1, row=1, padx=(5, 15), pady=5, sticky="W")
             sell.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
             if asset.liability == None:
                 liability.grid_forget()
@@ -509,14 +509,14 @@ class View:
                     break
 
             # updating information
-            balance.config(text="Balance: $" + str(View.format_number(liability.debt_amount)))
+            balance.config(text="Balance: $" + View.format_number(liability.debt_amount))
             interest_rate.config(text="Interest Rate: " + str(liability.interest_rate * 100) + "%")
             months_to_pay.config(text="Months to Pay: " + str(liability.months_left))
 
             # adding items
-            balance.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
-            interest_rate.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
-            months_to_pay.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+            balance.grid(column=0, row=0, padx=(5, 15), pady=5, sticky="W")
+            interest_rate.grid(column=0, row=1, padx=(5, 15), pady=5, sticky="W")
+            months_to_pay.grid(column=0, row=2, padx=(5, 15), pady=5, sticky="W")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
 
@@ -529,11 +529,12 @@ class View:
 
         scrollbar.config(command=listbox.yview)
 
-        value = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        price = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         cash_flow = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        loan_amount = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
         buy = tk.Button(data_frame, text="Buy", bg=PRIM_COLOR, font=self.small_font)
 
         # adding to display
@@ -566,21 +567,27 @@ class View:
                     break
 
             # updating information
-            value.config(text="Value: $" + str(View.format_number(asset.value)))
-            cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
+            price.config(text="Price: $" + View.format_number(asset.value))
+            cash_flow.config(text="Cash Flow: $" + View.format_number(asset.income) + "/month")
             mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
             std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
             if asset.liability != None:
+                price.config(text="Down Payment: $" + View.format_number(asset.value - asset.liability.debt_amount))
                 liability.config(text="Liability: " + asset.liability.name)
+                loan_amount.config(text="Loan Amount: $" + View.format_number(asset.liability.debt_amount))
 
             buy.config(command=lambda :self.control.buy_asset(asset_name))
 
-            value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
-            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
-            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
-            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
-            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+            cash_flow.grid(column=0, row=0, padx=(5, 15), pady=5, sticky="W")
+            price.grid(column=0, row=1, padx=(5, 15), pady=5, sticky="W")
+            loan_amount.grid(column=0, row=2, padx=(5, 15), pady=5, sticky="W")
+            mean_apr.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="W")
+            std_apr.grid(column=1, row=1, padx=(5, 15), pady=5, sticky="W")
+            liability.grid(column=1, row=2, padx=(5, 15), pady=5, sticky="W")
             buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
+            if asset.liability == None:
+                loan_amount.grid_forget()
+                liability.grid_forget()
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
 
@@ -596,7 +603,7 @@ class View:
         liability.config(text="Liability: $" + tax_amount_str)
         buy.config(command=lambda : self.control.pay_all_taxes())
 
-        liability.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+        liability.grid(column=0, row=0, padx=(5, 15), pady=5, sticky="W")
         buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
 
     def career_tab(self, bottom_frame: tk.Frame):
@@ -641,12 +648,12 @@ class View:
                     break
 
             # updating information
-            income.config(text="Income: $" + str(View.format_number(career.income)))
+            income.config(text="Income: $" + View.format_number(career.income))
        
 
             buy.config(command=lambda :self.control.buy_career(career_name))
 
-            income.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            income.grid(column=0, row=0, padx=(5, 15), pady=5, sticky="W")
 
             buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
 
