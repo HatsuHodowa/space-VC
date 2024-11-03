@@ -1,5 +1,6 @@
 from enum import Enum
 from numpy import random
+from models.Liability import Liability
 
 class AssetType(Enum):
     PROPERTY = 1,
@@ -16,6 +17,10 @@ class Asset:
         self.apr_std = apr_std
         self.asset_type = asset_type
         self.liability = liability
+
+        # converting liability to object
+        if type(self.liability) == dict:
+            self.liability = Liability(**self.liability)
 
     def to_dict(self):
         return {

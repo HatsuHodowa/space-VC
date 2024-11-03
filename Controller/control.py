@@ -38,10 +38,7 @@ class SpaceVC:
                     #print(k, v)
 
                     if k == "assets":
-                        li = li + [[ Asset.Asset(**g) for g in v]]
-                    if k == "liabilities":
-                        li = li + [[Liability.Liability(**g) for g in v]]
-                        #li.append( Liability.Liability(**v))
+                        li = li + [[Asset.Asset(**g) for g in v]]
                     if k == "careers":
                         li = li + [[Job.Job(**g) for g in v]]
                         #li.append( Job.Job(**v))
@@ -74,7 +71,7 @@ class SpaceVC:
             "balance": self.player.cash,
             "net_worth": self.player.balance,
             "assets": sum([asset.value for asset in self.player.assets]),
-            "liabilities": sum([asset["debt_amount"] for asset in self.player.liabilities]),
+            "liabilities": sum([liability.debt_amount for liability in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months
@@ -114,7 +111,7 @@ class SpaceVC:
                     bought_asset.name = bought_asset.name + ": " + name
 
                     if bought_asset.liability != None:
-                        bought_asset.liability["name"] += ": " + name
+                        bought_asset.liability.name += ": " + name
 
                 self.view.input_popup("Enter a name for your asset:", change_name)
             

@@ -21,7 +21,7 @@ class Player:
         if sample_asset.liability:
             if self.credit_score < 500:
                 return None, "Not enough credit! Need 500."
-            down_payment = sample_asset.value - sample_asset.liability["debt_amount"]
+            down_payment = sample_asset.value - sample_asset.liability.debt_amount
             self.cash -= down_payment
             new_liability = self.buy_liability(sample_asset.liability)
         else:
@@ -42,13 +42,15 @@ class Player:
     def buy_liability(self, sample_liability: Liability) -> Liability:
         liability = copy.deepcopy(sample_liability)
         self.liabilities.append(liability)
+        print('new liability')
+        print(liability)
         return liability
 
     def sell_asset(self, asset: Asset):
         self.assets.remove(asset)
         if asset.liability:
             self.sell_liability(asset.liability)
-            self.cash += (asset.value - asset.liability["debt_amount"])
+            self.cash += (asset.value - asset.liability.debt_amount)
         else:
             self.cash += asset.value
         self.tax.profits += (asset.value - asset.purchase_price)
@@ -91,7 +93,7 @@ class Player:
     
     @property
     def balance(self):
-        return self.cash + sum([asset.value for asset in self.assets]) - sum([liability["debt_amount"] for liability in self.liabilities])
+        return self.cash + sum([asset.value for asset in self.assets]) - sum([liability.debt_amount for liability in self.liabilities])
     
     @property
     def risk_aversion(self):
