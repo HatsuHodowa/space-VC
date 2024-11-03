@@ -1,6 +1,9 @@
 import json
+import json
 import tkinter as tk
 import sys
+
+
 
 
 
@@ -8,6 +11,7 @@ sys.path.append("..")
 sys.path.append("View")
 sys.path.append("..")
 sys.path.append("models")
+from models import Asset
 from models import Asset
 from View import View
 from models import Player
@@ -56,6 +60,7 @@ class SpaceVC:
 
         root = tk.Tk()
         self.view = View.View(root)
+        self.update_ui()
         self.update_ui()
         root.mainloop()
         
