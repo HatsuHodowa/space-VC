@@ -67,7 +67,7 @@ class SpaceVC:
             "balance": self.player.cash,
             "net_worth": self.player.balance,
             "assets": sum([asset.value for asset in self.player.assets]),
-            "liabilities": sum([asset.value for asset in self.player.liabilities]),
+            "liabilities": sum([asset.debt_amount for asset in self.player.liabilities]),
             "credit_score": self.player.credit_score,
             "occupation": self.player.job.title if self.player.job else "Unemployed",
             "month": self.game.months
