@@ -81,6 +81,19 @@ class SpaceVC:
         }
         self.view.update_stats(stats_dict)
 
+    def buy_career(self, career_name):
+        print(f"Buying career: {career_name}")
+
+        # finding asset
+        for career in self.data[self.game.level][1]:
+            if career.title == career_name:
+                sample_asset = career
+                break
+
+        self.player.get_job(sample_asset)
+        self.update_ui()
+    
+
     def buy_asset(self, asset_name):
 
         # finding asset

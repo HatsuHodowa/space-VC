@@ -87,7 +87,7 @@ class Player:
 
     @property
     def income(self):
-        return sum([asset.income for asset in self.assets])
+        return sum([asset.income for asset in self.assets]) + self.job.income /12 if self.job else 0
     
     @property
     def balance(self):
