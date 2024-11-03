@@ -97,7 +97,7 @@ class SpaceVC:
 
         bought_asset, response = self.player.buy_asset(sample_asset)
         if bought_asset and bought_asset.name == f"{self.game.level} Rocket":
-            self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
+            #self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
             
             self.game.level_up()
             #print(self.game.level)
@@ -118,8 +118,8 @@ class SpaceVC:
 
                     if bought_asset.liability != None:
                         bought_asset.liability.name += ": " + name
-                    if bought_asset and bought_asset.name == f"{self.game.level} Rocket":
-                        self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
+                    #if bought_asset and bought_asset.name == f"{self.game.level} Rocket":
+                        #self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
                     
 
                 self.view.input_popup("Enter a name for your asset:", change_name)
