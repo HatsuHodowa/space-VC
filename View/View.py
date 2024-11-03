@@ -285,6 +285,45 @@ class View:
         pass
 
     def liabilities_tab(self, bottom_frame: tk.Frame):
+
+        # creating items
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        balance = tk.Label(data_frame, font=self.small_font, text="Balance: $0", bg=PRIM_COLOR)
+        interest_rate = tk.Label(data_frame, font=self.small_font, text="Interest Rate: 5%", bg=PRIM_COLOR)
+        months_to_pay = tk.Label(data_frame, font=self.small_font, text="Months to Pay: 0", bg=PRIM_COLOR)
+
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # adding liabilities
+        for i in range(10):
+            listbox.insert(0, "Hello world " + str(i))
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            selected = event.widget.curselection()
+
+            # updating information
+            
+            # adding items
+            balance.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            interest_rate.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
+            months_to_pay.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
+
         # list all current liabilities
         # getting loans
         # paying off loans
