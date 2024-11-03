@@ -38,7 +38,8 @@ STARTING_YEAR = 3000
 
 # class
 class View:
-    def __init__(self, window: tk.Tk):
+    def __init__(self, window: tk.Tk, control):
+        self.control = control
 
         # configuring window
         self.window = window

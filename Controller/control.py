@@ -63,7 +63,7 @@ class SpaceVC:
         print(self.data)
 
         root = tk.Tk()
-        self.view = View.View(root)
+        self.view = View.View(root, self)
         self.update_ui()
         self.update_ui()
         root.mainloop()
