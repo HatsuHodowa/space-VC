@@ -97,10 +97,11 @@ class Player:
     def risk_aversion(self):
         """Computes Risk aversion. The weight of an asset if the dollar value of a security divided by the total value of the portfolio"""
         total = 0
-        sum_of_values = sum([asset.value for asset in self.assets])
+        tw = 0
+        #sum_of_values = sum([asset.value for asset in self.assets])
         for asset in self.assets:
             print(asset.name, asset.value, asset.apr_mean, asset.apr_std)
-            weight = asset.value / sum_of_values
+            weight = asset.value 
             if asset.apr_mean <= 0.03:
                 weight = 0
             if asset.apr_std < 0.00001 : #edge case, make it really small
@@ -108,8 +109,11 @@ class Player:
             else:
                 risk = 2 / (asset.apr_std ** 2) * (asset.apr_mean - 0.03)
                 total += weight * risk
-        print(total)
-        return total
+                tw += weight
+        if tw ==0:
+            tw =1
+        print(total/ tw)
+        return total/tw
     
 
     def calculate_all_taxes(self):
