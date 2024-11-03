@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 import math
 
 # constants
-WINDOW_SIZE = (600, 600)
+WINDOW_SIZE = (900, 600)
 PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
@@ -27,6 +27,7 @@ MONTHS = [
     "December"
 ]
 NUMBER_SUFFIXES = [
+    "",
     " K",
     " M",
     " B",
@@ -38,7 +39,8 @@ STARTING_YEAR = 3000
 
 # class
 class View:
-    def __init__(self, window: tk.Tk):
+    def __init__(self, window: tk.Tk, control):
+        self.control = control
 
         # configuring window
         self.window = window
@@ -73,11 +75,15 @@ class View:
         self.set_menu("in_game")
 
     def format_number(number: int) -> str:
+        if number <= 0:
+            return str(number)
+        
         suffix_index = math.floor(math.log10(number) / 3)
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
 
     def update_stats(self, stats_dict: dict):
+        print("Updating stats: ", stats_dict)
         """
         stats_dict keys:
             balance: number
@@ -119,8 +125,9 @@ class View:
             self.set_menu(self.current_menu)
 
     def set_background(self, path: str):
-        bg_image = Image.open("../View/back.jpg")
-        bg_image = bg_image.resize((800, 600), Image.LANCZOS)
+        bg_image = Image.open(path)
+        aspect_ratio = bg_image.width / bg_image.height
+        bg_image = bg_image.resize((WINDOW_SIZE[0], int(WINDOW_SIZE[0] / aspect_ratio)), Image.LANCZOS)
         self.bg_photo = ImageTk.PhotoImage(bg_image)
         self.bg_label = tk.Label(self.window, image=self.bg_photo)
         self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
@@ -134,8 +141,8 @@ class View:
         for widget in self.window.winfo_children():
             widget.destroy()
 
-    def in_game(self, current_tab: str = "stats_tab"):
-        self.set_background("../View/back.jpg")
+    def in_game(self, current_tab: str = "stats_tab", background="../View/backgrounds/unicorn space.jpg"):
+        self.set_background(background)
 
         # top bar
         top_bar = tk.Frame(self.window, **self.frame_styling)
@@ -166,10 +173,14 @@ class View:
         stats_tab = tk.Button(tabs_frame, text="Stats", bg=PRIM_COLOR, font=self.small_font)
         assets_tab = tk.Button(tabs_frame, text="Assets", bg=PRIM_COLOR, font=self.small_font)
         liabilities_tab = tk.Button(tabs_frame, text="Liabilities", bg=PRIM_COLOR, font=self.small_font)
+        Asset_market_tab = tk.Button(tabs_frame, text="Asset markets", bg=PRIM_COLOR, font=self.small_font)
+        taxes_tab = tk.Button(tabs_frame, text="Taxes", bg=PRIM_COLOR, font=self.small_font)
 
         stats_tab.grid(column=0, row=0)
         assets_tab.grid(column=1, row=0)
         liabilities_tab.grid(column=2, row=0)
+        Asset_market_tab.grid(column=3, row=0)
+        taxes_tab.grid(column=4, row=0)
 
         # coloring selected tab
         if current_tab == "stats_tab":
@@ -178,6 +189,10 @@ class View:
             assets_tab.config(bg=SELECTED_COLOR)
         elif current_tab == "liabilities_tab":
             liabilities_tab.config(bg=SELECTED_COLOR)
+        elif current_tab == "Asset_market_tab":
+            Asset_market_tab.config(bg=SELECTED_COLOR)
+        elif current_tab == "taxes_tab":
+            taxes_tab.config(bg=SELECTED_COLOR)
 
         # connecting buttons
         def switch_tab(new_tab: str):
@@ -186,6 +201,8 @@ class View:
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
         liabilities_tab.config(command=lambda :switch_tab("liabilities_tab"))
+        Asset_market_tab.config(command=lambda :switch_tab("Asset_market_tab"))
+        taxes_tab.config(command=lambda :switch_tab("taxes_tab"))
 
         # adding tab content for current tab
         if current_tab != None:
@@ -212,12 +229,205 @@ class View:
         liabilities.grid(column=1, row=1, sticky="W", **self.padding_5)
 
     def assets_tab(self, bottom_frame: tk.Frame):
-        pass
+
+        # creating items
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        value = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        cash_flow = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # getting data
+        assets: list = self.control.player.assets
+
+        # adding assets
+        for asset in assets:
+            listbox.insert(tk.END, asset.name)
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            if len(assets) == 0:
+                return
+
+            # finding asset based on selection
+            selected = event.widget.curselection()
+            asset_name = listbox.get(selected[0])
+            asset = None
+
+            for other_asset in assets:
+                if other_asset.name == asset_name:
+                    asset = other_asset
+                    break
+
+            # updating information
+            value.config(text="Value: $" + str(View.format_number(asset.value)))
+            cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
+            mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
+            std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
+            if asset.liability != None:
+                liability.config(text="Liability: " + asset.liability["name"])
+            
+            # adding items
+            value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
+            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
+            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
 
     def liabilities_tab(self, bottom_frame: tk.Frame):
+
+        # creating items
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        balance = tk.Label(data_frame, font=self.small_font, text="Balance: $0", bg=PRIM_COLOR)
+        interest_rate = tk.Label(data_frame, font=self.small_font, text="Interest Rate: 5%", bg=PRIM_COLOR)
+        months_to_pay = tk.Label(data_frame, font=self.small_font, text="Months to Pay: 0", bg=PRIM_COLOR)
+
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # getting data
+        liabilities: list = self.control.player.liabilities
+
+        # adding assets
+        for liability in liabilities:
+            listbox.insert(tk.END, liability.name)
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            selected = event.widget.curselection()
+            liability_name = listbox.get(selected[0])
+            liability = None
+
+            for other_liability in liabilities:
+                if other_liability.name == liability_name:
+                    liability = other_liability
+                    break
+
+            # updating information
+            balance.config(text="Balance: $" + str(View.format_number(liability.debt_amount)))
+            interest_rate.config(text="Interest Rate: " + str(liability.interest_rate * 100) + "%")
+            months_to_pay.config(text="Months to Pay: " + str(liability.months_left))
+
+            # adding items
+            balance.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            interest_rate.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
+            months_to_pay.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
+
+        # list all current liabilities
+        # getting loans
+        # paying off loans
+
+        """
+        for each liability
+            balance: number
+            interest_rate: number
+            months_to_pay: number
+        """
+        
+
+    def Asset_market_tab(self, bottom_frame: tk.Frame):
+        # buy/sell assets and liabilities
+        scrollbar = tk.Scrollbar(bottom_frame, orient="vertical")
+        listbox = tk.Listbox(bottom_frame, **self.frame_styling, yscrollcommand=scrollbar.set, font=self.small_font)
+        data_frame = tk.Frame(bottom_frame, **self.frame_styling)
+
+        scrollbar.config(command=listbox.yview)
+
+        value = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        cash_flow = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        mean_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        std_apr = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        liability = tk.Label(data_frame, font=self.small_font, bg=PRIM_COLOR)
+        buy = tk.Button(data_frame, text="Buy", bg=PRIM_COLOR, font=self.small_font)
+        sell = tk.Button(data_frame, text="Sell", bg=PRIM_COLOR, font=self.small_font)
+        # adding to display
+        bottom_frame.columnconfigure(0, weight=1)
+        bottom_frame.columnconfigure(1, weight=0)
+        bottom_frame.columnconfigure(2, weight=50)
+        bottom_frame.rowconfigure(0, weight=1)
+
+        listbox.grid(column=0, row=0, padx=(10, 0), pady=10, sticky="NESW")
+        scrollbar.grid(column=1, row=0, padx=(0, 10), pady=10, sticky="NSW")
+        data_frame.grid(column=2, row=0, **self.padding_10, sticky="NESW")
+
+        # getting data
+        assets: list = self.control.data[self.control.level][0]
+
+        # adding assets
+        for asset in assets:
+            listbox.insert(tk.END, asset.name)
+
+        # configuring listbox
+        def listbox_select(event: tk.Event):
+            selected = event.widget.curselection()
+            asset_name = listbox.get(selected[0])
+            asset = None
+
+            for other_asset in assets:
+                if other_asset.name == asset_name:
+                    asset = other_asset
+                    break
+
+            # updating information
+            value.config(text="Value: $" + str(View.format_number(asset.value)))
+            cash_flow.config(text="Cash Flow: $" + str(View.format_number(asset.income)) + "/month")
+            mean_apr.config(text="Mean Return: " + str(asset.apr_mean * 100) + "%")
+            std_apr.config(text="STD Return: " + str(asset.apr_std * 100) + "%")
+            if asset.liability != None:
+                liability.config(text="Liability: " + asset.liability["name"])
+
+            
+
+            buy.config(command=lambda :self.control.buy_asset(asset_name))
+            sell.config(command=lambda : self.control.sell_asset(asset_name))
+
+            value.grid(column=0, row=0, padx=(5, 15), pady=5, stick="W")
+            cash_flow.grid(column=0, row=1, padx=(5, 15), pady=5, stick="W")
+            mean_apr.grid(column=0, row=2, padx=(5, 15), pady=5, stick="W")
+            std_apr.grid(column=1, row=0, padx=(5, 15), pady=5, stick="W")
+            liability.grid(column=1, row=1, padx=(5, 15), pady=5, stick="W")
+            buy.grid(column=2, row=0, padx=(5, 15), pady=5, sticky="EW")
+            sell.grid(column=2, row=1, padx=(5, 15), pady=5, sticky="EW")
+
+
+
+
+        listbox.bind("<<ListboxSelect>>", listbox_select)
+        
+
         pass
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = View(root)
-    root.mainloop()
+    def taxes_tab(self, bottom_frame: tk.Frame):
+        pass
