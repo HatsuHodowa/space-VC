@@ -3,7 +3,6 @@ class Taxes:
     def __init__(self) -> None:
         self.taxable_income = 0
         self.profits = 0
-        self.property_tax = 0
         self.business_tax = 0
         self.income_tax_owed = 0
         self.capitals_gains_tax_owed = 0
@@ -18,17 +17,6 @@ class Taxes:
             10**13: 0.35,
             10**15: 0.37,
             10**17: 0.43
-        }
-        self.property_tax_brackets = {
-            "Earth": 0.05,
-            "Moon": 0.10,
-            "Venus": 0.15,
-            "Mars": 0.20,
-            "Mercury": 0.22,
-            "Jupiter": 0.24,
-            "Saturn": 0.26,
-            "Uranus": 0.28,
-            "Neptune": 0.3
         }
 
     def report_income(self, income):
@@ -49,6 +37,7 @@ class Taxes:
         for bracket, rate in self.brackets.items():
             if self.taxable_income > bracket:
                 income_tax += (bracket - prev) * rate
+                self.taxable_income -= (bracket - prev)
             else:
                 income_tax += (self.taxable_income - prev) * rate
                 break
@@ -61,6 +50,7 @@ class Taxes:
         for bracket, rate in self.brackets.items():
             if self.taxable_income > bracket:
                 business_tax += (bracket - prev) * rate
+                self.business_tax -= (bracket - prev)
             else:
                 business_tax += (self.taxable_income - prev) * rate
                 break
@@ -70,6 +60,10 @@ class Taxes:
     def calculate_capital_gains_tax(self):
         self.capitals_gains_tax_owed += 0.15 * self.profits
 
-    def calculate_property_tax(self, property: Asset, planet):
-        rate = self.property_tax_brackets[planet]
+    def calculate_property_tax(self, property: Asset):
+        rate = 0.05
         self.property_tax_owed += rate * property.value
+    
+    @property
+    def taxes_owed(self):
+        return self.capitals_gains_tax_owed + self.business_tax_owed + self.income_tax_owed + self.property_tax_owed
