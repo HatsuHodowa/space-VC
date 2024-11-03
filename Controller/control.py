@@ -35,7 +35,6 @@ class SpaceVC:
                 li = []
                 
                 for k, v in data.items():
-                    #print(k, v)
 
                     if k == "assets":
                         li = li + [[Asset.Asset(**g) for g in v]]
@@ -54,9 +53,6 @@ class SpaceVC:
 
         self.data = convert_to_list(self.data)
         self.levels = list(self.data.keys())
-
-        # testing
-        self.player.cash += 500000
 
         root = tk.Tk()
         self.view = View.View(root, self)
@@ -80,7 +76,6 @@ class SpaceVC:
         self.view.update_stats(stats_dict)
 
     def buy_career(self, career_name):
-        print(f"Buying career: {career_name}")
 
         # finding asset
         for career in self.data[self.game.level][1]:
@@ -159,6 +154,7 @@ class SpaceVC:
             taxes = self.player.calculate_all_taxes()
 
             # prompting player to pay taxes
+            self.game.tax_lock = True
             self.view.tax_popup(self.pay_all_taxes)
 
         # monthly update and UI update
@@ -167,8 +163,7 @@ class SpaceVC:
 
     def pay_all_taxes(self):
 
-        # locking and paying taxes
-        self.game.tax_lock = True
+        # attemping to pay taxes
         status = self.player.pay_all_taxes()
 
         # checking status code
@@ -176,11 +171,19 @@ class SpaceVC:
             print("game over not implemented")
             #TODO game over
         elif status == 1:
-            self.view.popup_display("You don't have enough money to pay taxes! Sell some assets and pay your taxes before you can move on.")
-            
+            self.sell_to_pay_taxes_event()
         else:
+            print('unlock')
             self.game.tax_lock = False
             self.update_ui()
+
+    def sell_to_pay_taxes_event(self):
+
+        # initial popup
+        def popup_confirm():
+            self.pay_all_taxes()
+
+        self.view.popup_display("You don't have enough money to pay taxes! Sell some assets and pay your taxes before you can move on.", popup_confirm, "Attempt Pay")
 
 if __name__ == "__main__":
     SpaceVC()

@@ -216,7 +216,6 @@ class View:
         ok_button.config(command=remove)
 
     def update_stats(self, stats_dict: dict):
-        print("Updating stats: ", stats_dict)
         """
         stats_dict keys:
             balance: number
@@ -353,7 +352,9 @@ class View:
             self.set_menu("in_game", new_tab)
 
         def on_next_button():
+            print('next button')
             if self.control.game.tax_lock == False:
+                print('unlocked')
                 self.control.monthly_update()
 
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
@@ -623,7 +624,6 @@ class View:
         careers: list = self.control.data[self.control.game.level][1]
 
         # adding assets
-        print(careers)
         for career in careers:
             listbox.insert(tk.END, career.title)
 

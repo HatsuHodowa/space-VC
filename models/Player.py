@@ -21,6 +21,8 @@ class Player:
             if self.credit_score < 500:
                 return None, "Not enough credit! Need 500."
             down_payment = sample_asset.value - sample_asset.liability.debt_amount
+            if self.cash < down_payment:
+                return None, "Insufficient funds!"
             self.cash -= down_payment
             new_liability = self.buy_liability(sample_asset.liability)
         else:
@@ -100,7 +102,6 @@ class Player:
         tw = 0
         #sum_of_values = sum([asset.value for asset in self.assets])
         for asset in self.assets:
-            print(asset.name, asset.value, asset.apr_mean, asset.apr_std)
             weight = asset.value 
             if asset.apr_mean <= 0.03:
                 weight = 0
@@ -112,7 +113,6 @@ class Player:
                 tw += weight
         if tw ==0:
             tw =1
-        print(total/ tw)
         return total/tw
     
 
