@@ -6,7 +6,7 @@ import json
 
 # constants
 WINDOW_SIZE = (900, 600)
-POPUP_SIZE = (300, 200)
+POPUP_SIZE = (400, 200)
 PRIM_COLOR = "#e8e8e8"
 SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
@@ -86,7 +86,6 @@ class View:
 
         # opening game
         self.set_menu("in_game")
-
         self.tutorial()
 
     def format_number(number: int) -> str:
@@ -132,6 +131,41 @@ class View:
         
         # close button
         confirm.config(command=on_confirm)
+
+    def popup_with_title(self, title_msg: str, message: str, destroy_callback=None, button_text="OK"):
+        """
+        Creates a popup display (with a title) and returns a function that removes that popup display upon calling.
+        """
+
+        self.current_popup = lambda :self.popup_with_title(title_msg, message, destroy_callback, button_text)
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        print(title_msg)
+        title = tk.Label(frame, bg=PRIM_COLOR, text=title_msg, font=self.medium_font, wraplength=POPUP_SIZE[0])
+        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
+        ok_button = tk.Button(frame, bg=GREEN, text=button_text, width=10, font=self.small_font)
+
+        title.grid(column=0, row=0, **self.padding_10)
+        label.grid(column=0, row=1, **self.padding_10)
+        ok_button.grid(column=0, row=2, **self.padding_10)
+
+        # return function
+        def remove():
+
+            # destroying popup
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+
+            # destroy callback
+            if destroy_callback != None:
+                destroy_callback()
+        
+        # close button
+        ok_button.config(command=remove)
     
     def popup_display(self, message: str, destroy_callback=None, button_text="OK"):
         """
@@ -655,14 +689,14 @@ class View:
         with open("../tutorial.json") as file:
             data = json.load(file)
 
-            items = ["appreciation", "interest", "tax", "tax_bracket", "risk_aversion"]
-            current_item = 0
+            items = ["Appreciation", "Interest", "Tax", "Tax Bracket", "Risk Aversion", "Game Tutorial"]
 
-            def next_item(current_item=0):
+            def next_item(current_item):
                 current_item += 1
-                try:
-                    self.popup_display(data[items[current_item]], lambda :next_item(current_item), "Next")
-                except:
-                    pass
+                item = items[current_item]
+                if current_item >= len(items) - 1:
+                    self.popup_with_title(item, data[item], None, "Done")
+                else:
+                    self.popup_with_title(item, data[item], lambda :next_item(current_item), "Next")
 
-            self.popup_display(data[items[current_item]], next_item, "Next")
+            next_item(-1)
