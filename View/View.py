@@ -85,12 +85,38 @@ class View:
         formatted = str(round(number / (10 ** (suffix_index * 3)), 2)) + NUMBER_SUFFIXES[suffix_index]
         return formatted
     
+    def input_popup(self, message: str) -> str:
+        """
+        Creates a popup display with an input, and returns the value that is inputted.
+        """
+
+        self.current_popup = lambda :self.input_popup(message)
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        label = tk.Label(frame, bg=PRIM_COLOR, text=message, font=self.small_font, wraplength=POPUP_SIZE[0])
+        ok_button = tk.Button(frame, bg=GREEN, text="OK", width=10, font=self.small_font)
+
+        label.grid(column=0, row=0, **self.padding_10)
+        ok_button.grid(column=0, row=1, **self.padding_10)
+
+        # return function
+        def remove():
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+        
+        # close button
+        ok_button.config(command=remove)
+    
     def popup_display(self, message: str):
         """
         Creates a popup display and returns a function that removes that popup display upon calling.
         """
 
-        self.current_popup = message
+        self.current_popup = lambda :self.popup_display(message)
 
         # creating popup frame
         frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
@@ -172,7 +198,7 @@ class View:
 
         # adding popup again
         if self.current_popup != None:
-            self.popup_display(self.current_popup)
+            self.current_popup()
         
     def clear_window(self):
         for widget in self.window.winfo_children():
@@ -236,8 +262,8 @@ class View:
             taxes_tab.config(bg=SELECTED_COLOR)
 
         # connecting buttons
-        def switch_tab(new_tab: str):
-            self.set_menu("in_game", new_tab)
+        def switch_tab(new_tab: str, background: str = None):
+            self.set_menu("in_game", new_tab, background)
 
         stats_tab.config(command=lambda :switch_tab("stats_tab"))
         assets_tab.config(command=lambda :switch_tab("assets_tab"))
