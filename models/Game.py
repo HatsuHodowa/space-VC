@@ -1,5 +1,6 @@
 from models.Player import Player
 from models.Asset import AssetType
+from View.View import View
 
 class Game:
     def __init__(self) -> None:
@@ -34,8 +35,13 @@ class Game:
                 self.player.collections_remove_liability(liability)
             liability.calculate_interest()
             liability.months_left -= 1
+        
+    def sell_each_asset(self):
+        for asset in self.player.assets:
+            self.player.sell_asset(asset)
     
     def level_up(self):
+        self.sell_each_asset()
         if self.level == "Earth":
             self.level = "Moon"
         elif self.level == "Moon":

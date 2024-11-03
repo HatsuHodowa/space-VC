@@ -99,6 +99,7 @@ class SpaceVC:
             print("go to next level ")
             self.game.level_up()
             
+            
 
         # renaming assets
         def rename_asset():
@@ -111,6 +112,7 @@ class SpaceVC:
 
                     if bought_asset.liability != None:
                         bought_asset.liability.name += ": " + name
+                    self.view.popup_display(f"Congratulations! You made it to the {self.game.level}!")
 
                 self.view.input_popup("Enter a name for your asset:", change_name)
             
