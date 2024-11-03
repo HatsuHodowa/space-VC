@@ -1,5 +1,4 @@
 import json
-import json
 import tkinter as tk
 import sys
 

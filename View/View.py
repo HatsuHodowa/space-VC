@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 import math
+import json
 
 # constants
 WINDOW_SIZE = (900, 600)
@@ -85,6 +86,8 @@ class View:
 
         # opening game
         self.set_menu("in_game")
+
+        self.tutorial()
 
     def format_number(number: int) -> str:
         if number <= 0:
@@ -647,3 +650,19 @@ class View:
             buy.grid(column=1, row=0, padx=(5, 15), pady=5, sticky="EW")
 
         listbox.bind("<<ListboxSelect>>", listbox_select)
+    
+    def tutorial(self):
+        with open("../tutorial.json") as file:
+            data = json.load(file)
+
+            items = ["appreciation", "interest", "tax", "tax_bracket", "risk_aversion"]
+            current_item = 0
+
+            def next_item(current_item=0):
+                current_item += 1
+                try:
+                    self.popup_display(data[items[current_item]], lambda :next_item(current_item), "Next")
+                except:
+                    pass
+
+            self.popup_display(data[items[current_item]], next_item, "Next")
