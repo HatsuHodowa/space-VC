@@ -52,7 +52,7 @@ class Player:
             self.cash += (asset.value - asset.liability.debt_amount)
         else:
             self.cash += asset.value
-        self.tax.profits += (asset.value - asset.purchase_price)
+        self.tax.capital_gains += (asset.value - asset.purchase_price)
 
     def sell_liability(self, liability):
         if liability in self.liabilities:
@@ -120,6 +120,7 @@ class Player:
         self.tax.calculate_capital_gains_tax()
         self.tax.calculate_income_tax()
         self.tax.calculate_income_business_tax()
+        self.tax.calculate_property_tax()
         return self.tax.taxes_owed
     
     def pay_all_taxes(self) -> int:
@@ -139,8 +140,8 @@ class Player:
         else:
             self.cash -= self.tax.taxes_owed
 
-            self.tax.taxable_income = 0
-            self.tax.profits = 0
+            self.tax.job_income = 0
+            self.tax.capital_gains = 0
             self.tax.business_tax = 0
             self.tax.income_tax_owed = 0
             self.tax.capital_gains_tax_owed = 0

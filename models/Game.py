@@ -13,8 +13,9 @@ class Game:
 
         #process salary
         if self.player.job:
-            self.player.cash += self.player.job.income / 12
-            self.player.tax.taxable_income += self.player.job.income / 12
+            job_income = self.player.job.income / 12
+            self.player.cash += job_income
+            self.player.tax.report_job_income(job_income)
 
         #appreciate assets
         for asset in self.player.assets:
