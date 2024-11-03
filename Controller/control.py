@@ -1,9 +1,9 @@
 import json
 import tkinter as tk
 import sys
-
-
-
+import os
+import psutil
+import logging
 
 sys.path.append("..")
 sys.path.append("View")
@@ -167,8 +167,7 @@ class SpaceVC:
 
         # checking status code
         if status == 2:
-            print("game over not implemented")
-            #TODO game over
+            self.game_over()
         elif status == 1:
             self.sell_to_pay_taxes_event()
         else:
@@ -182,6 +181,31 @@ class SpaceVC:
             self.pay_all_taxes()
 
         self.view.popup_display("You don't have enough money to pay taxes! Sell some assets and pay your taxes before you can move on.", popup_confirm, "Attempt Pay")
+
+    def game_over(self):
+        def on_close():
+            self.restart_program()
+
+        self.view.game_over_popup(on_close)
+
+    def restart_program(self):
+        """
+        Restarts the current program, with file objects and descriptors
+        cleanup
+
+        Found from
+        https://stackoverflow.com/questions/11329917/restart-python-script-from-within-itself
+        """
+
+        try:
+            p = psutil.Process(os.getpid())
+            for handler in p.get_open_files() + p.connections():
+                os.close(handler.fd)
+        except Exception as e:
+            logging.error(e)
+
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
 
 if __name__ == "__main__":
     SpaceVC()

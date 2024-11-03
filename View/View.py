@@ -12,6 +12,7 @@ SEC_COLOR = "#ababab"
 SELECTED_COLOR = "#a0e6eb"
 GREEN = "#00ff00"
 YELLOW = "#ffff00"
+RED = "#ff0000"
 WHITE = "#ffffff"
 BLACK = "#000000"
 
@@ -692,12 +693,8 @@ class View:
             self.current_popup = None
         
         # connecting buttons
-        to_close = False
         ok_button.config(command=remove)
         skip_button.config(command=on_skip_button)
-
-        # returning
-        return to_close
     
     def tutorial(self):
         with open("../tutorial.json") as file:
@@ -714,3 +711,40 @@ class View:
                     self.tutorial_popup(item, data[item], lambda :next_item(current_item), "Next")
 
             next_item(-1)
+
+    def game_over_popup(self, destroy_callback=None):
+        """
+        The popup that appears when you lose the game / go bankrupt.
+        """
+
+        self.current_popup = lambda :self.game_over_popup(destroy_callback)
+
+        # creating popup frame
+        frame = tk.Frame(self.window, **self.frame_styling, width=POPUP_SIZE[0], height=POPUP_SIZE[1])
+        frame.place(anchor="center", x=int(WINDOW_SIZE[0]/2), y=int(WINDOW_SIZE[1]/2))
+
+        title = tk.Label(frame, bg=PRIM_COLOR, text="Game Over!", font=self.medium_font, wraplength=POPUP_SIZE[0])
+        label = tk.Label(frame, bg=PRIM_COLOR, text="You have gone bankrupt and can no longer continue.", font=self.small_font, wraplength=POPUP_SIZE[0])
+        ok_button = tk.Button(frame, bg=RED, text="Restart", width=10, font=self.small_font)
+
+        title.grid(column=0, row=0, **self.padding_10)
+        label.grid(column=0, row=1, **self.padding_10)
+        ok_button.grid(column=0, row=2, **self.padding_10)
+
+        # buttons
+        def remove():
+
+            # destroying popup
+            label.destroy()
+            frame.destroy()
+            self.current_popup = None
+
+            # destroy callback
+            if destroy_callback != None:
+                destroy_callback()
+        
+        # connecting buttons
+        ok_button.config(command=remove)
+
+    def close(self):
+        self.window.quit()
